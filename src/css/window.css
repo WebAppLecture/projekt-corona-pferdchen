@@ -1,0 +1,21 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    text-align: center;
+}
+
+.gameBox {
+    position: relative;
+    width: fit-content;
+}
+
+.screen {
+    width: 80vh;
+    height: 40vh;
+    background: skyblue;
+    color: seagreen;
+
+    box-shadow: 0 0 2vh 2vh black;
+}

@@ -1,3 +1,15 @@
+import { GameEngine } from "./gameEngine.js";
+import { Trail } from "./trail.js";
+
+window.gameEngine = new GameEngine(
+    document.querySelector(".button"),
+    document.querySelector(".screen"),
+   // document.querySelector(".menu")
+   );
+
+console.log("index.js");
+
+
 fetch("src/data/data.json")
     .then(e => e.json())
     .then(json => {
