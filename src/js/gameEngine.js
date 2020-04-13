@@ -1,4 +1,4 @@
-import { Trail } from "./trail.js";
+import { CoronaJump } from "./coronaJump.js";
 
 export class GameEngine {
 
@@ -15,7 +15,7 @@ export class GameEngine {
 
     loadGame() {
         
-        this.game = new Trail();
+        this.game = new CoronaJump();
         this.gameLoop();
         console.log("GameEngine");
     }

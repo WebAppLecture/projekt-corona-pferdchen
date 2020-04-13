@@ -1,5 +1,5 @@
 import { GameEngine } from "./gameEngine.js";
-import { Trail } from "./trail.js";
+
 
 window.gameEngine = new GameEngine(
     document.querySelector(".button"),
