@@ -1,17 +1,11 @@
 import {GameTemplate } from "./gameTemplate.js";
-import { GameObject } from "./gameObject.js";
-import { FpsControl } from "./FpsControl.js";
+import { GameObject, RoundObject } from "./gameObject.js";
+
 
 
 export class CoronaJump extends GameTemplate{
     start(){
-        this.fpsControl = new FpsControl();
-        this.fpsControl.fps = 2;
-        
         this.pushMaps();
-        
-       
-
     }
 
 
@@ -21,35 +15,35 @@ export class CoronaJump extends GameTemplate{
     pushMaps(){
         let trailmap = [
             "111_________",
+            "11__________",
+            "111__3______",
+            "11__________",
+            "11___4______",
+            "111_________",
+            "11__________",
+            "___3________",
+            "____________",
+            "11___4______",
+            "111_________",
+            "111_________",
+            "111_________",
+            "111_________",
+            "11___3______",
+            "11__________",
+            "111_________",
+            "11_____2____",
+            "____________",
+            "____________",
+            "11__________",
+            "111_________",
+            "111_________",
             "112_________",
             "111____2____",
             "11__________",
             "11__________",
             "111_________",
             "11_____2____",
-            "____________",
-            "____________",
-            "11__________",
-            "111_________",
-            "111_________",
-            "111_________",
-            "111_________",
-            "11__________",
-            "11__________",
-            "111_________",
-            "11_____2____",
-            "____________",
-            "____________",
-            "11__________",
-            "111_________",
-            "111_________",
-            "112_________",
-            "111____2____",
-            "11__________",
-            "11__________",
-            "111_________",
-            "11_____2____",
-            "____________",
+            "____1_______",
             "____________",
             "11__________",
             "111_________",
@@ -67,28 +61,50 @@ export class CoronaJump extends GameTemplate{
 
         ];
         this.trail = [];
-        let obMap = new Map([["1", ["green", 50]],["2",["yellow", 30]],["_",["blue", 50]]]);
         for(let i = 0; i<trailmap.length; i++){
             let reihe = trailmap[i];
-            
             for(let r = 0; r< reihe.length-1; r++){
                 let symbol = reihe[r];
-                
-                let piece = obMap.get(symbol);
-                let piececolor = piece[0]; 
-                
-                let pieceheight = piece[1];
-
-                this.trail.push(new GameObject(i*50,400-(r*40),50, pieceheight, piececolor ,-1,0));
-                
+                this.symbol = symbol;
+                let x = i*50;
+                let y = 400-((r+1)*40);
+                switch (this.symbol){
+                    case "_":
+                        break;
+                    case "1":
+                        this.drawGround(x,y);
+                        break;
+                    case "2":
+                        this.drawMask(x,y);
+                        break;
+                    case "3":
+                        this.drawToiletPaper(x,y);
+                        break;
+                    case "4":
+                        this.drawVirus(x,y);
+                        break;
+                }
             }
         }
+    }
+    drawGround(x,y){
+        this.trail.push(new GameObject(x, y, 50, 50, "green" ,-1, 0));
+    }
+    drawMask(x,y){
+        this.trail.push(new GameObject(x,y,50,30,"#66FFCC",-1,0));
+    }
+    drawToiletPaper(x,y){
+        this.trail.push(new RoundObject(x,y, 15, "#999",-1,0));
+        console.log("tp"+x+y);
+    }
+    drawVirus(x,y){
+        this.trail.push(new RoundObject(x,y, 20, "#80FF00",-1,0));
     }
 
     draw(ctx){
         this.trail.forEach(element => {
             element.draw(ctx);
-            
+            console.log("drawEle");
         });
     }
     update(ctx){ 
@@ -97,8 +113,7 @@ export class CoronaJump extends GameTemplate{
     }
     updateTrails(ctx){
         this.trail.forEach(element => {
-            if(element.x >= -20){
-               
+            if(element.x >= -60){
                 element.update(ctx);
             }
             //else delete?
