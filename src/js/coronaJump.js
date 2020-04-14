@@ -1,64 +1,108 @@
 import {GameTemplate } from "./gameTemplate.js";
 import { GameObject } from "./gameObject.js";
+import { FpsControl } from "./FpsControl.js";
 
 
 export class CoronaJump extends GameTemplate{
     start(){
-        this.initTrail();
+        this.fpsControl = new FpsControl();
+        this.fpsControl.fps = 2;
+        
         this.pushMaps();
         
        
 
     }
-    initTrail(){
-        this.trailA = new GameObject(XBEGINNING, 370, TRAILLENGTH, 30, "green", -5, 0);
-        this.trailB = new GameObject(750, 370, 650, 30, "black", -5, 0);
-    }
 
-    initObjects(){
-        
-        
+
+    initObjects(){   
     }
 
     pushMaps(){
         let trailmap = [
-            "1____________",
-            "1_2__________",
-            "1_______2____"];
-        let mapping = [["1", ["green", 50]],["2",["#99FFCC", 50]],["_",["blue", 50]]];
-        let obMap = new Map(mapping);
+            "111_________",
+            "112_________",
+            "111____2____",
+            "11__________",
+            "11__________",
+            "111_________",
+            "11_____2____",
+            "____________",
+            "____________",
+            "11__________",
+            "111_________",
+            "111_________",
+            "111_________",
+            "111_________",
+            "11__________",
+            "11__________",
+            "111_________",
+            "11_____2____",
+            "____________",
+            "____________",
+            "11__________",
+            "111_________",
+            "111_________",
+            "112_________",
+            "111____2____",
+            "11__________",
+            "11__________",
+            "111_________",
+            "11_____2____",
+            "____________",
+            "____________",
+            "11__________",
+            "111_________",
+            "111_________",
+            "111_________",
+            "111_________",
+            "11__________",
+            "11__________",
+            "111_________",
+            "11_____2____",
+            "____________",
+            "____________",
+            "11__________",
+            "111_________",
+
+        ];
+        this.trail = [];
+        let obMap = new Map([["1", ["green", 50]],["2",["yellow", 30]],["_",["blue", 50]]]);
         for(let i = 0; i<trailmap.length; i++){
             let reihe = trailmap[i];
-            for(let r = reihe.length; r>0; r--){
-                let symbol = reihe[i];
+            
+            for(let r = 0; r< reihe.length-1; r++){
+                let symbol = reihe[r];
+                
                 let piece = obMap.get(symbol);
-                let piececolor = piece[0];
+                let piececolor = piece[0]; 
+                
                 let pieceheight = piece[1];
-                this.pieceTrail = new GameObject(750,r*30,50, pieceheight, piececolor ,-4,0);
+
+                this.trail.push(new GameObject(i*50,400-(r*40),50, pieceheight, piececolor ,-1,0));
                 
             }
         }
     }
 
     draw(ctx){
-        this.trailA.draw(ctx);
-        this.trailB.draw(ctx);
-        this.pieceTrail.draw(ctx);
+        this.trail.forEach(element => {
+            element.draw(ctx);
+            
+        });
     }
-    update(ctx){ //trails laufen in Schleife abwechselnd durch, mit Loch dazwischen
+    update(ctx){ 
         this.updateTrails(ctx);
-        
-        
         
     }
     updateTrails(ctx){
-        [this.trailA, this.trailB].forEach(element => {
-            if(element.x <= -TRAILLENGTH){
-                element.x = 800;
-            } else {
+        this.trail.forEach(element => {
+            if(element.x >= -20){
+               
                 element.update(ctx);
             }
-        });
+            //else delete?
+        })
     }
     
 };

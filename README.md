@@ -6,7 +6,7 @@ Leitung: Dr. Friedrich Wünsch, Louis Ritzkowski
 
 # Projektname #
 
-Manuel Mustermann, Marta Musterfrau, Mo Mustermensch
+Eva Pulina, Matr.Nr. 1861525
 
 ### Beschreibung ###
 

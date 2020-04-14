@@ -9,8 +9,8 @@ window.gameEngine = new GameEngine(
 
 console.log("index.js");
 
-
-fetch("src/data/data.json")
+/*
+fetch("src/data/data.json") // beispiel daten reinladen
     .then(e => e.json())
     .then(json => {
         let title = document.createElement("h2"),
@@ -24,4 +24,4 @@ fetch("src/data/data.json")
         document.body.appendChild(title);
         document.body.appendChild(content);
         document.body.appendChild(image);
-    });
+    });*/
