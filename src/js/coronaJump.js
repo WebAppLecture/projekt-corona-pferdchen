@@ -95,7 +95,7 @@ export class CoronaJump extends GameTemplate{
     }
     drawToiletPaper(x,y){
         this.trail.push(new RoundObject(x,y, 15, "#999",-1,0));
-        console.log("tp"+x+y);
+        
     }
     drawVirus(x,y){
         this.trail.push(new RoundObject(x,y, 20, "#80FF00",-1,0));
@@ -104,7 +104,7 @@ export class CoronaJump extends GameTemplate{
     draw(ctx){
         this.trail.forEach(element => {
             element.draw(ctx);
-            console.log("drawEle");
+            
         });
     }
     update(ctx){ 
