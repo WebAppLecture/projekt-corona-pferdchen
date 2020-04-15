@@ -1,5 +1,5 @@
 import {GameTemplate } from "./gameTemplate.js";
-import { GameObject, RoundObject, SquareObject, Toiletpaper } from "./gameObject.js";
+import { GameObject, Toiletpaper, Mask, Virus, GroundObject } from "./gameObject.js";
 import { Player } from "./player.js";
 
 
@@ -30,9 +30,9 @@ export class CoronaJump extends GameTemplate{
             "____________",
             "11___4______",
             "111_________",
+            "1112________",
             "111_________",
-            "111_________",
-            "111_________",
+            "1111________",
             "11___3______",
             "11__________",
             "111_________",
@@ -93,37 +93,56 @@ export class CoronaJump extends GameTemplate{
         }
     }
     drawGround(x,y){
-        this.trail.push(new SquareObject(x, y, 50, 50, "green" ,-1, 0));
+        this.trail.push(new GroundObject(x, y, 50, 50 ,-1, 0));
     }
     drawMask(x,y){
-        this.trail.push(new SquareObject(x,y,50,30,"#66FFCC",-1,0));
+        this.trail.push(new Mask(x,y,50,-1,0,true));
     }
     drawToiletPaper(x,y){
-        this.trail.push(new Toiletpaper(x,y, 20, -1,0));
+        this.trail.push(new Toiletpaper(x,y, 20, -1,0,true));
         
     }
     drawVirus(x,y){
-        this.trail.push(new RoundObject(x,y, 20, "#80FF00",-1,0));
+        this.trail.push(new Virus(x,y, 20, "#80FF00",-1,0,true));
     }
 
     draw(ctx){
+        this.player.draw(ctx);
         this.trail.forEach(element => {
             element.draw(ctx);
             
         });
-        this.player.draw(ctx);
+        
     }
     update(ctx){ 
+        this.updatePlayer(ctx);
         this.updateTrails(ctx);
         
     }
     updateTrails(ctx){
         this.trail.forEach(element => {
+            // wenn ein Element player berührt
+            if(element.x<150&&element.x>100&&element.y<this.player.y+this.player.width
+                &&element.y>this.player.y-element.width){
+                    console.log("ouch! "+element.takeable);
+                    if(element.takeable){
+                        element.take();
+                        this.trail.splice(this.trail.indexOf(element),1);
+                    }
+
+                    //checken, ob Bodenelement - Schiebt player ins off
+                    //oder nehmbares Element - wird unsichtbar, irgendwas gezählt und sound ertönt
+            }
             if(element.x >= -60){
                 element.update(ctx);
             }
             //else delete?
         })
+    }
+    updatePlayer(ctx){
+        if(GameObject.rectangleCollision(this.player, GameObject)){
+
+        }
     }
     
 };
