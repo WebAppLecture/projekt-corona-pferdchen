@@ -1,5 +1,5 @@
 import {GameTemplate } from "./gameTemplate.js";
-import { GameObject, RoundObject } from "./gameObject.js";
+import { GameObject, RoundObject, SquareObject, Toiletpaper } from "./gameObject.js";
 
 
 
@@ -34,13 +34,13 @@ export class CoronaJump extends GameTemplate{
             "11_____2____",
             "____________",
             "____________",
-            "11__________",
+            "11____4_____",
             "111_________",
             "111_________",
             "112_________",
             "111____2____",
             "11__________",
-            "11__________",
+            "11____4_____",
             "111_________",
             "11_____2____",
             "____1_______",
@@ -50,7 +50,7 @@ export class CoronaJump extends GameTemplate{
             "111_________",
             "111_________",
             "111_________",
-            "11__________",
+            "11____4_____",
             "11__________",
             "111_________",
             "11_____2____",
@@ -88,13 +88,13 @@ export class CoronaJump extends GameTemplate{
         }
     }
     drawGround(x,y){
-        this.trail.push(new GameObject(x, y, 50, 50, "green" ,-1, 0));
+        this.trail.push(new SquareObject(x, y, 50, 50, "green" ,-1, 0));
     }
     drawMask(x,y){
-        this.trail.push(new GameObject(x,y,50,30,"#66FFCC",-1,0));
+        this.trail.push(new SquareObject(x,y,50,30,"#66FFCC",-1,0));
     }
     drawToiletPaper(x,y){
-        this.trail.push(new RoundObject(x,y, 15, "#999",-1,0));
+        this.trail.push(new Toiletpaper(x,y, 20, -1,0));
         
     }
     drawVirus(x,y){
