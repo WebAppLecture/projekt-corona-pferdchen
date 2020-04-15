@@ -1,15 +1,20 @@
 import {GameTemplate } from "./gameTemplate.js";
 import { GameObject, RoundObject, SquareObject, Toiletpaper } from "./gameObject.js";
+import { Player } from "./player.js";
 
 
 
 export class CoronaJump extends GameTemplate{
     start(){
+        
+        this.initObjects();
         this.pushMaps();
     }
 
 
     initObjects(){   
+        this.player = new Player(100,250,30,0,0,"#a77");
+        
     }
 
     pushMaps(){
@@ -106,6 +111,7 @@ export class CoronaJump extends GameTemplate{
             element.draw(ctx);
             
         });
+        this.player.draw(ctx);
     }
     update(ctx){ 
         this.updateTrails(ctx);

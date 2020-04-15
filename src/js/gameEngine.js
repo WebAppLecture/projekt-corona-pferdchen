@@ -17,7 +17,6 @@ export class GameEngine {
         
         this.game = new CoronaJump();
         this.gameLoop();
-        console.log("GameEngine");
     }
 
     setupCanvas() {

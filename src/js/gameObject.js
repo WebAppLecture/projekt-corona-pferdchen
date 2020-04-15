@@ -17,9 +17,13 @@ export class GameObject {
         this.y+=this.vy;
     }
     draw(ctx){
-        
+    }
+}
+export class TakeObject extends GameObject{ //Klasse fuer alle nehmbaren Objekte
+    constructor(x,y,width,vx,vy,sound,visible){
         
     }
+
 }
 
 export class SquareObject extends GameObject{

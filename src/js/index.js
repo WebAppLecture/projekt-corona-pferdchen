@@ -7,7 +7,6 @@ window.gameEngine = new GameEngine(
    // document.querySelector(".menu")
    );
 
-console.log("index.js");
 
 /*
 fetch("src/data/data.json") // beispiel daten reinladen
