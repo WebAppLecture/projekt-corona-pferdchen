@@ -4,8 +4,7 @@ export class Player extends GameObject{
     constructor(x, y, width, vx, vy,color){
        super(x,y,width,vx,vy);
         this.color = color;
-        this.gravity = 0,05;
-        this.gravitySpeed = 0;
+        
     }
 
     move(dx, dy){
