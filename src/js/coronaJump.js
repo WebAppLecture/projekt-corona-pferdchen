@@ -13,8 +13,8 @@ export class CoronaJump extends GameTemplate{
 
 
     initObjects(){   
-        this.player = new Player(100,250,30,0,0,"#a77");
-        
+        this.player = new Player(200, 200, 30, 0 ,1 ,"#a77");
+        this.gameOver = false;
     }
 
     pushMaps(){
@@ -27,7 +27,7 @@ export class CoronaJump extends GameTemplate{
             "111_________",
             "11__________",
             "___3________",
-            "____________",
+            "___11_______",
             "11___4______",
             "111_________",
             "1112________",
@@ -35,13 +35,13 @@ export class CoronaJump extends GameTemplate{
             "1111________",
             "11___3______",
             "11__________",
-            "111_________",
+            "1111________",
             "11_____2____",
             "____________",
             "____________",
             "11____4_____",
             "111_________",
-            "111_________",
+            "1111________",
             "112_________",
             "111____2____",
             "11__________",
@@ -115,23 +115,33 @@ export class CoronaJump extends GameTemplate{
         
     }
     update(ctx){ 
-        this.updatePlayer(ctx);
-        this.updateTrails(ctx);
+        this.checkGameOver()
+            this.updatePlayer(ctx);
+            this.updateTrails(ctx);
         
     }
+    showGameoverScreen(ctx){
+        super.gameOverScreen(ctx);
+    }
     updateTrails(ctx){
+        
         this.trail.forEach(element => {
             // wenn ein Element player berührt
             if(element.x<150&&element.x>100&&element.y<this.player.y+this.player.width
                 &&element.y>this.player.y-element.width){
-                    console.log("ouch! "+element.takeable);
+                   // console.log("ouch! "+element.takeable);
                     if(element.takeable){
                         element.take();
                         this.trail.splice(this.trail.indexOf(element),1);
+                    } else {
+                        this.player.pushAside(element,-1,0);
                     }
 
                     //checken, ob Bodenelement - Schiebt player ins off
                     //oder nehmbares Element - wird unsichtbar, irgendwas gezählt und sound ertönt
+            } else if(!element.takeable&&element.x<this.player.x+this.player.width&&
+                element.x>this.player.x-element.width&&this.player.y<=element.y+this.player.width+1){
+                    this.player.stopfalling();
             }
             if(element.x >= -60){
                 element.update(ctx);
@@ -140,9 +150,19 @@ export class CoronaJump extends GameTemplate{
         })
     }
     updatePlayer(ctx){
-        if(GameObject.rectangleCollision(this.player, GameObject)){
-
-        }
+        //if(GameObject.rectangleCollision(this.player, GameObject)){
+            this.player.update(ctx);
+            
+        //}
+    }
+    checkGameOver(){
+       this.gameOver = this.player.y>=450||this.player.x<=50;
+        
+    }
+    bindControls(){
+        /*this.inputBinding = {
+            ""
+        }*/
     }
     
 };

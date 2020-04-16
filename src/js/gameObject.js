@@ -16,7 +16,7 @@ export class GameObject {
     }
     update(){
         this.x +=this.vx;
-        this.y+=this.vy;
+        this.y +=this.vy;
     }
     draw(ctx){
     }
@@ -120,8 +120,8 @@ export class Toiletpaper extends TakeObject{
             ctx.fill();
         
     }
-    move(dx, dy){
-        super.move(dx,dy);
+    push(dx, dy){
+        super.push(dx,dy);
     }
     update(){
         super.update();

@@ -4,18 +4,44 @@
 
 body {
     text-align: center;
+        background: radial-gradient(ellipse at center, rgb(64, 255, 77) 50%,  rgb(189, 9, 165) 100%);
+
 }
 
-.gameBox {
+.centered {
+    margin: 0 auto;
+}
+
+.gameBox{
     position: relative;
+    box-sizing: border-box;
     width: fit-content;
+    background: chartreuse;
+    display: block;
+    
 }
+.logo {
+    width: 100%;
+    height: 7vh;
 
+    padding-left: 7vh;
+    font-size: 4vh;
+    font-family: monospace;
+
+    font-weight: bold;
+}
 .screen {
     width: 80vh;
     height: 40vh;
     background: skyblue;
     color: seagreen;
-
+    margin: 0 3vh 3vh 3vh;
+    padding: 1vh;
     box-shadow: 0 0 2vh 2vh black;
+}
+.toiletpaper > * {
+     display: inline-block;
+     position: absolute;
+     left: 2vh;
+    bottom: 2vh;
 }
