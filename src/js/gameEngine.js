@@ -11,6 +11,7 @@ export class GameEngine {
        // this.setupControls();
        // this.showGameSelect();
        this.loadGame();
+       document.addEventListener("click", this.game.jump());
     }
 
     loadGame() {
@@ -22,6 +23,7 @@ export class GameEngine {
     setupCanvas() {
         this.renderContext = this.screen.getContext('2d');
         this.screen.classList.add("on");
+        
     }
 
     gameLoop() {  

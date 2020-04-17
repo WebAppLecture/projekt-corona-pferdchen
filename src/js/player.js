@@ -14,18 +14,15 @@ export class Player extends GameObject{
 //TODO: Kollision mit Bodenkante, runter fallen vom Boden oder wegschieben checken, 
 //      x<-50 oder y>400
     // Gravitation, Steuerung - jump - per Mausklick
-    pushAside(element,dx, dy){
-        if(element.x<150&&element.x>100&&element.y<this.y+this.width
-            &&element.y>this.y-element.width){
-                console.log("nerviger Klotz");
-                this.move(dx,dy);
-            }
+    pushAside(dx, dy){
+        this.move(dx,dy);
     }
     jump(){
 
     }
-    stopfalling(){
-        this.move(0,0);
+    stopfalling(yelement){
+        this.y = yelement-this.width;
+        
     }
    /* move(dx, dy){
         //this.gravitySpeed+= this.gravity;

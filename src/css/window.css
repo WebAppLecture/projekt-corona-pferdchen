@@ -7,6 +7,10 @@ body {
         background: radial-gradient(ellipse at center, rgb(64, 255, 77) 50%,  rgb(189, 9, 165) 100%);
 
 }
+.gameBox,
+.gameBox * {
+    
+}
 
 .centered {
     margin: 0 auto;
@@ -16,6 +20,7 @@ body {
     position: relative;
     box-sizing: border-box;
     width: fit-content;
+    height: fit-content;
     background: chartreuse;
     display: block;
     
@@ -25,9 +30,10 @@ body {
     height: 7vh;
 
     padding-left: 7vh;
+    padding-top: 0.5vh;
     font-size: 4vh;
     font-family: monospace;
-
+    border-bottom: 2vh dotted greenyellow;
     font-weight: bold;
 }
 .screen {
@@ -36,12 +42,44 @@ body {
     background: skyblue;
     color: seagreen;
     margin: 0 3vh 3vh 3vh;
-    padding: 1vh;
+    cursor: pointer;
     box-shadow: 0 0 2vh 2vh black;
 }
 .toiletpaper > * {
-     display: inline-block;
-     position: absolute;
+     display: inline;
+     background: gray;
      left: 2vh;
     bottom: 2vh;
+    border: 2vh solid white;
+    border-radius: 50%;
+    padding: .5vh 1vh ;
+    margin-right: 2vh;
+}
+.toiletpaper > *:enabled{
+    border: 2vh solid black;
+}
+.reset{
+    top:1.5vh;
+    left: 4vh;
+    width: 7.5vh;
+    height:4vh;
+}
+.shoot{
+    right: 4vh;
+    bottom:5;
+    width: 7.5vh;
+    height:4vh;
+    
+}
+.button > * {
+    position:absolute;
+    cursor: pointer;
+    border: 1vh double red;
+    background: blueviolet;
+    font-size: 2vh;
+    font-family: monospace;
+    font-weight: bold;
+}
+.button > *:active {
+    transform: scale(0.9);
 }

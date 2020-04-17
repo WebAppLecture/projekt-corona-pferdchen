@@ -111,7 +111,7 @@ export class Toiletpaper extends TakeObject{
             ctx.fillStyle = this.outerColor;
             ctx.fill();
             ctx.lineWidth = 1;
-            ctx.strokeStyle = "#999";
+            ctx.strokeStyle = "#ddd";
             ctx.stroke();
         }
         ctx.beginPath();
@@ -127,6 +127,10 @@ export class Toiletpaper extends TakeObject{
         super.update();
     }
     take(){
+        //let tp = document.querySelector('.toiletpaper.first-child');
+        //console.log(tp);
+       // tp.classList.add("enabled");
+
         console.log("ONE ROLL TP");
     }
 }

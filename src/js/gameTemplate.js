@@ -35,7 +35,7 @@ export class GameTemplate {
             ctx.fillText(line, ctx.canvas.width/2, startY + i * fontSize);
         }); 
     }
-    input(type, active) {
+    /*input(type, active) {
         if(this.gameOver && type === "primary") {
             this.start();   
             this.bindControls();  
@@ -43,5 +43,5 @@ export class GameTemplate {
         if(this.inputBinding.hasOwnProperty(type)) {
             this.inputBinding[type](active);
         }
-    }
+    }*/
 }
