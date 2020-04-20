@@ -5,8 +5,7 @@ export class Player extends GameObject{
        super(x,y,width,color,vx,vy,false);
        this.y=y;
         this.color = color;
-        this.gravity = 1;
-        this.gravitySpeed = 1;
+        this.jumping = false;
 
         
         
@@ -18,7 +17,11 @@ export class Player extends GameObject{
         this.move(dx,dy);
     }
     jump(){
-
+        console.log("jump");
+        if(this.jumping===false){
+            this.move(0, -3);
+            
+        }
     }
     stopfalling(yelement){
         this.y = yelement-this.width;

@@ -13,7 +13,7 @@ export class CoronaJump extends GameTemplate{
 
 
     initObjects(){   
-        this.player = new Player(200, 250, 30, 0 ,0.5 ,"#a77");
+        this.player = new Player(200, 250, 30, 0 ,0.1 ,"#a77");
         this.gameOver = false;
     }
 
@@ -27,7 +27,7 @@ export class CoronaJump extends GameTemplate{
             "111_________",
             "11__________",
             "___3________",
-            "___11_______",
+            "____1_______",
             "11___4______",
             "111_________",
             "1112________",
@@ -131,7 +131,6 @@ export class CoronaJump extends GameTemplate{
                 element.x>this.player.x-element.width
                 &&element.y<this.player.y+this.player.width
                 &&element.y>this.player.y-element.width){
-                    console.log("ouch! "+element.takeable);
                     if(element.takeable){
                         element.take();
                         this.trail.splice(this.trail.indexOf(element),1);
@@ -140,7 +139,6 @@ export class CoronaJump extends GameTemplate{
                         
                     } else{
                         this.player.stopfalling(element.y);
-                        console.log("stopfalling!");
                     }
 
                     //checken, ob Bodenelement - Schiebt player ins off
@@ -151,7 +149,6 @@ export class CoronaJump extends GameTemplate{
                 this.player.y>=element.y+this.player.width+1&&
                 element.y>this.player.y){
                     this.player.stopfalling(element.y);
-                    console.log("stopfalling?");
             }
             if(element.x >= -60){
                 element.update(ctx);
@@ -166,7 +163,8 @@ export class CoronaJump extends GameTemplate{
         //}
     }
     jump(){
-        this.player.move(0,-1);
+        console.log("coronaJump");
+        this.player.jump();
     }
     checkGameOver(){
        this.gameOver = this.player.y>=450||this.player.x<=-50;

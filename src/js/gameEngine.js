@@ -11,7 +11,7 @@ export class GameEngine {
        // this.setupControls();
        // this.showGameSelect();
        this.loadGame();
-       document.addEventListener("click", this.game.jump());
+       this.screen.addEventListener("click", this.game.jump());
     }
 
     loadGame() {
@@ -27,10 +27,10 @@ export class GameEngine {
     }
 
     gameLoop() {  
-       // if(this.game !== undefined) {
-            requestAnimationFrame(this.gameLoop.bind(this));  
-            this.renderContext.clearRect(0,0,this.screen.width, this.screen.height);
-            this.game.tick(this.renderContext); //ctx
-       // }
+       
+        requestAnimationFrame(this.gameLoop.bind(this));  
+        this.renderContext.clearRect(0,0,this.screen.width, this.screen.height);
+        this.game.tick(this.renderContext); //ctx
+       
     }
 }
