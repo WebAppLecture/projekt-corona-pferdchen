@@ -59,7 +59,7 @@ body {
     padding: .5vh 1vh ;
     margin-right: 2vh;
 }
-.toiletpaper > *:disabled{
+.toiletpaper:disabled{
     border: 2vh solid black;
 }
 .reset{

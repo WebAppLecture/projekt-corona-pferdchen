@@ -1,3 +1,6 @@
+
+
+
 export class GameObject {
 
     constructor(x, y, width, color, vx, vy, takeable){
@@ -38,28 +41,18 @@ export class TakeObject extends GameObject{ //Klasse fuer alle nehmbaren Objekte
     take(){
         //countsomething
         //playsound
-        let audio = new Audio(this.sound);
-        audio.play();
+        
         
     }
 }
-export class Mask extends TakeObject{
-    constructor(x,y,width,vx,vy,visible){
-        super(x, y, width, "#66FFCC", vx, vy,"../../src/sounds/mask.wav", true);
-        this.height = 30;
-       // this.sound = sound;
-        this.visible = visible;
-    }
-    draw(ctx){
-        ctx.fillStyle = this.color;
-        ctx.fillRect(this.x, this.y, this.width, this.height);
-    }
-}
+
 
 export class GroundObject extends GameObject{
 
     constructor(x, y, vx, vy){
         super(x,y,30, "green",vx,vy, false);
+        this.x = x;
+        this.y = y;
         this.width = 30;
         this.color = "green";
         
@@ -68,12 +61,19 @@ export class GroundObject extends GameObject{
         ctx.fillStyle = this.color;
         ctx.fillRect(this.x, this.y, this.width, this.width);
     }
+    collision(playerx,playery,playerwidth){
+        return (this.x<playerx+playerwidth&&
+            this.x>playerx-this.width
+            &&this.y<playery+playerwidth+1
+            &&this.y>playery-this.width);
+        
+    }
 }
 
 export class Virus extends TakeObject{
 
     constructor(x, y, width, color,vx,vy,visible){
-        super(x,y,width,color,vx,vy,visible);
+        super(x,y,width,color,vx,vy,"../../src/sounds/virus.wav", visible);
         this.color = color;
         //sound
     }
@@ -94,6 +94,17 @@ export class Virus extends TakeObject{
         //ctx.shadowBlur = 10;
        // ctx.shadowColor = this.color;
         ctx.fill();
+    }
+    collision(playerx,playery,playerwidth){
+        return (playerx>this.x-this.width-playerwidth&&
+            playerx<this.x+this.width&&
+            playery<this.y+this.width&&
+            playery>this.y-playerwidth-this.width);
+    }
+    take(){
+        let audio = new Audio("../../src/sounds/virus.wav");
+        audio.play();
+        return "1Virus";
     }
 }
 
@@ -127,10 +138,18 @@ export class Toiletpaper extends TakeObject{
         super.update();
     }
     take(){
-        //let tp = document.querySelector('.toiletpaper.first-child');
-        //console.log(tp);
-       // tp.classList.add("enabled");
-
-        console.log("ONE ROLL TP");
+        //let tp = document.querySelector(".toiletpaper:first-child");
+        
+        //tp.classList.remove("disabled");
+        let audio = new Audio("../../src/sounds/toiletp.wav");
+        audio.play();
+        return "1TP";
+        
+    }
+    collision(playerx,playery,playerwidth){
+        return (playerx>this.x-this.width-playerwidth&&
+            playerx<this.x+this.width&&
+            playery<this.y+this.width&&
+            playery>this.y-playerwidth-this.width);
     }
 }
