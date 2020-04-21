@@ -6,7 +6,7 @@ export class Player extends GameObject{
        this.y=y;
         this.color = color;
         this.jumping = false;
-
+        this.stopfalling = false;
         
         
     }
@@ -19,25 +19,36 @@ export class Player extends GameObject{
     jump(){
         console.log("jump");
         if(this.jumping===false){
-            this.move(0, -3);
+            this.jumping = true;
+            this.vy-=12;
             
+
         }
     }
     stopfalling(yelement){
-        this.y = yelement-this.width;
+        if(yelement>this.y){
+            this.vy=0;
+        }
+    }
+    walkfaster(){
         
     }
    /* move(dx, dy){
         //this.gravitySpeed+= this.gravity;
         this.x += dx;
         this.y += dy; //+ this.gravitySpeed;
-    }
-    /*update(){
-        //if(this.x+this.width>=){}
-        //(GameObject.rectangleCollision(Player, GroundObject)){
-        
-        
     }*/
+    update(ctx){
+        if(!this.stopfalling){
+            this.vy+=0.2;
+        }
+        
+        if(this.x<200){
+            this.vx=0.1;
+        }
+        super.update(ctx);
+        
+    }
     draw(ctx){
         ctx.fillStyle = this.color;
         ctx.fillRect(this.x, this.y, this.width, this.width);

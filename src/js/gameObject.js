@@ -58,15 +58,15 @@ export class Mask extends TakeObject{
 
 export class GroundObject extends GameObject{
 
-    constructor(x, y, width, height, vx, vy){
-        super(x,y,width, "green",vx,vy, false);
-        this.height = height;
+    constructor(x, y, vx, vy){
+        super(x,y,30, "green",vx,vy, false);
+        this.width = 30;
         this.color = "green";
         
     }
     draw(ctx){
         ctx.fillStyle = this.color;
-        ctx.fillRect(this.x, this.y, this.width, this.height);
+        ctx.fillRect(this.x, this.y, this.width, this.width);
     }
 }
 

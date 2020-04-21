@@ -11,7 +11,7 @@ export class GameEngine {
        // this.setupControls();
        // this.showGameSelect();
        this.loadGame();
-       this.screen.addEventListener("click", this.game.jump());
+       window.addEventListener("mousedown", ()=> this.game.jump());
     }
 
     loadGame() {

@@ -13,7 +13,7 @@ export class CoronaJump extends GameTemplate{
 
 
     initObjects(){   
-        this.player = new Player(200, 250, 30, 0 ,0.1 ,"#a77");
+        this.player = new Player(200, 250, 30, 0 ,0 ,"#a77");
         this.gameOver = false;
     }
 
@@ -21,13 +21,13 @@ export class CoronaJump extends GameTemplate{
         let trailmap = [
             "111_________",
             "11__________",
-            "111__3______",
-            "11__________",
-            "11___4______",
             "111_________",
             "11__________",
-            "___3________",
-            "____1_______",
+            "11__________",
+            "111_______1_",
+            "11__________",
+            "11_3________",
+            "11__1_______",
             "11___4______",
             "111_________",
             "1112________",
@@ -37,8 +37,8 @@ export class CoronaJump extends GameTemplate{
             "11__________",
             "1111________",
             "11_____2____",
-            "___4________",
-            "____________",
+            "1__4________",
+            "1___________",
             "11____4_____",
             "111_________",
             "1111________",
@@ -68,16 +68,18 @@ export class CoronaJump extends GameTemplate{
         this.trail = [];
         for(let i = 0; i<trailmap.length; i++){
             let reihe = trailmap[i];
+            let inArray = [];
+            this.trail.push(inArray);
             for(let r = 0; r< reihe.length-1; r++){
                 let symbol = reihe[r];
                 this.symbol = symbol;
-                let x = i*50;
-                let y = 400-((r+1)*40);
+                let x = i*30;
+                let y = 400-((r+1)*30);
                 switch (this.symbol){
                     case "_":
                         break;
                     case "1":
-                        this.drawGround(x,y);
+                        inArray.push(new GroundObject(x, y ,-1, 0));
                         break;
                     case "2":
                         this.drawMask(x,y);
@@ -93,7 +95,7 @@ export class CoronaJump extends GameTemplate{
         }
     }
     drawGround(x,y){
-        this.trail.push(new GroundObject(x, y, 50, 50 ,-1, 0));
+        
     }
     drawMask(x,y){
         this.trail.push(new Mask(x,y,50,-1,0,true));
@@ -124,37 +126,45 @@ export class CoronaJump extends GameTemplate{
         super.gameOverScreen(ctx);
     }
     updateTrails(ctx){
-        
         this.trail.forEach(element => {
             // wenn ein Element player berührt
-            if(element.x<this.player.x+this.player.width&&
-                element.x>this.player.x-element.width
-                &&element.y<this.player.y+this.player.width
-                &&element.y>this.player.y-element.width){
+            if(this.collision(element)){
                     if(element.takeable){
                         element.take();
                         this.trail.splice(this.trail.indexOf(element),1);
-                    } else if(element.x>=this.player.x+this.player.width-1){
+                    } else if(element.x>=this.player.x+this.player.width-1){ //not-takeable element is on the side
                         this.player.pushAside(-1,0);
                         
                     } else{
-                        this.player.stopfalling(element.y);
+                        //this.player.stopfalling(element.y);
+                        this.player.stopfalling=true;
                     }
 
                     //checken, ob Bodenelement - Schiebt player ins off
                     //oder nehmbares Element - wird unsichtbar, irgendwas gezählt und sound ertönt
-            }  if(!element.takeable
+            }  else if(this.player.x<200){
+                this.player.walkfaster();
+            }
+            
+            /*if(!element.takeable
                 &&element.x<this.player.x+this.player.width&&
                 element.x>this.player.x-element.width&&
                 this.player.y>=element.y+this.player.width+1&&
                 element.y>this.player.y){
                     this.player.stopfalling(element.y);
-            }
-            if(element.x >= -60){
-                element.update(ctx);
+                }*/
+            element.update(ctx);
+            if(element.x <= -60){
+                this.trail.splice(this.trail.indexOf(element), 1);
             }
             //else delete?
         })
+    }
+    collision(element){
+        return (element.x<this.player.x+this.player.width&&
+            element.x>this.player.x-element.width
+            &&element.y<this.player.y+this.player.width
+            &&element.y>this.player.y-element.width);
     }
     updatePlayer(ctx){
         //if(GameObject.rectangleCollision(this.player, GameObject)){
@@ -167,7 +177,7 @@ export class CoronaJump extends GameTemplate{
         this.player.jump();
     }
     checkGameOver(){
-       this.gameOver = this.player.y>=450||this.player.x<=-50;
+       this.gameOver = this.player.y>=600||this.player.x<=-50;
         if(this.gameOver){
             console.log("Game over, x: "+this.player.x+" y: "+this.player.y);
         }
