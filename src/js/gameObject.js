@@ -23,25 +23,21 @@ export class GameObject {
     }
     draw(ctx){
     }
-    static rectangleCollision(rect1, rect2) {
-        return rect1.x < rect2.x + rect2.width &&
-        rect1.x + rect1.width > rect2.x &&
-        rect1.y < rect2.y + rect2.height &&
-        rect1.y + rect1.height > rect2.y;
-    }
+
 }
 export class TakeObject extends GameObject{ //Klasse fuer alle nehmbaren Objekte
-    constructor(x,y,width, color, vx,vy,sound,visible){
+    constructor(x,y,width, color, vx,vy){
         super(x, y, width, color, vx, vy, true);
-        this.sound = sound;
-        this.visible = visible;
-    }
-    //TODO: Methode für Sound abspielen bei berührung
-    //Todo: Toggle visibility
-    take(){
-        //countsomething
-        //playsound
         
+    }
+    
+    take(){
+    }
+    collision(playerx,playery,playerwidth){
+        return (this.x<playerx+playerwidth&&
+            this.x>playerx-this.width
+            &&this.y<playery+playerwidth+1
+            &&this.y>playery-this.width);
         
     }
 }
@@ -69,11 +65,59 @@ export class GroundObject extends GameObject{
         
     }
 }
+export class OldWhiteMan extends TakeObject{
+    constructor(x,y, width, color, vx,vy){
+        super(x, y, width, color, vx,vy);
+        this.x = x;
+        this.y = y;
+        this.width = width;
+
+    }
+    draw(ctx){
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.width, 4.2, 0.5);
+        ctx.fillStyle = "#f0ecd1";
+        ctx.fill();
+
+
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.width-7, 0, 2 * Math.PI);
+        ctx.fillStyle = "#fac34d";
+        ctx.fill();
+
+
+        ctx.beginPath();
+        ctx.moveTo(this.x-12, this.y-6);
+        ctx.arc(this.x-12, this.y-6, 8, 5.5, 2.5);
+        ctx.fillStyle = "black";
+        ctx.fill();
+        
+        ctx.beginPath();
+        ctx.strokeStyle= "black";
+        ctx.moveTo(this.x-8,this.y+10);
+        ctx.lineTo(this.x-18,this.y+10);
+        ctx.stroke();
+
+        
+    }
+    take(){
+        let audio = new Audio("../../src/sounds/altermann.wav");
+        audio.play();
+        return "1OWM";
+    }
+    collision(playerx,playery,playerwidth){
+        return (this.x<playerx+playerwidth&&
+            this.x>playerx-this.width
+            &&this.y<playery+playerwidth+1
+            &&this.y>playery-this.width);
+        
+    }
+}
 
 export class Virus extends TakeObject{
 
-    constructor(x, y, width, color,vx,vy,visible){
-        super(x,y,width,color,vx,vy,"../../src/sounds/virus.wav", visible);
+    constructor(x, y, width, color,vx,vy){
+        super(x,y,width,color,vx,vy,"../../src/sounds/virus.wav");
         this.color = color;
         //sound
     }
@@ -109,8 +153,8 @@ export class Virus extends TakeObject{
 }
 
 export class Toiletpaper extends TakeObject{
-    constructor(x,y,width, vx,vy,visible){
-        super(x,y, width,"#999", vx,vy,"../../src/sounds/toiletp.wav",visible);
+    constructor(x,y,width, vx,vy){
+        super(x,y, width,"#999", vx,vy,"../../src/sounds/toiletp.wav");
         this.width = width;
         this.outerColor = "#bbb";
         

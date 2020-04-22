@@ -1,5 +1,5 @@
 import {GameTemplate } from "./gameTemplate.js";
-import { GameObject, Toiletpaper, Virus, GroundObject } from "./gameObject.js";
+import { GameObject, Toiletpaper, Virus, GroundObject, OldWhiteMan } from "./gameObject.js";
 import { Player } from "./player.js";
 import { Mask } from "./mask.js";
 
@@ -38,14 +38,14 @@ export class CoronaJump extends GameTemplate{
             "11___3______",
             "11__________",
             "1111________",
-            "11_____2____",
+            "11__________",
             "1___________",
             "1___________",
-            "11____4_____",
-            "111_________",
+            "11__________",
+            "1115________",
             "1111________",
             "112_________",
-            "111____2____",
+            "111_________",
             "11__________",
             "11__________",
             "111_________",
@@ -54,7 +54,7 @@ export class CoronaJump extends GameTemplate{
             "1___________",
             "11__________",
             "111_________",
-            "111_________",
+            "1115________",
             "111_________",
             "111_________",
             "11____4_____",
@@ -82,7 +82,7 @@ export class CoronaJump extends GameTemplate{
             "11___3______",
             "11__________",
             "1111________",
-            "11_____2____",
+            "11__________",
             "1__4________",
             "1___________",
             "11____4_____",
@@ -128,13 +128,16 @@ export class CoronaJump extends GameTemplate{
                         inArray.push(new GroundObject(x, y ,-1, 0));
                         break;
                     case "2":
-                        inArray.push(new Mask(x,y,30,-1,0,true));
+                        inArray.push(new Mask(x,y,30,-1,0));
                         break;
                     case "3":
-                        inArray.push(new Toiletpaper(x,y, 20, -1,0,true));
+                        inArray.push(new Toiletpaper(x,y, 20, -1,0));
                         break;
                     case "4":
-                        inArray.push(new Virus(x,y, 20, "#80FF00",-1,0,true));
+                        inArray.push(new Virus(x,y, 20, "#80FF00",-1,0));
+                        break;
+                    case "5":
+                        inArray.push(new OldWhiteMan(x,y,25, "white",-1,0));
                         break;
                 }
             }
