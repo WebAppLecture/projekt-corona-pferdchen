@@ -182,9 +182,9 @@ export class Toiletpaper extends TakeObject{
         super.update();
     }
     take(){
-        //let tp = document.querySelector(".toiletpaper:first-child");
+       // let tp = document.querySelector(".toiletpaper:first-child");
         
-        //tp.classList.remove("disabled");
+      //  tp.classList.add("disabled");
         let audio = new Audio("../../src/sounds/toiletp.wav");
         audio.play();
         return "1TP";

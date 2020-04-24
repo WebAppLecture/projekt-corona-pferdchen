@@ -14,45 +14,39 @@ export class Player extends GameObject{
 //TODO: Kollision mit Bodenkante, runter fallen vom Boden oder wegschieben checken, 
 //      x<-50 oder y>400
     // Gravitation, Steuerung - jump - per Mausklick
-    pushAside(dx, dy){
+    pushAside(dx){
         this.x+= dx;
-        //console.log("pushAside");
     }
-    jump(){
-       // console.log("jump");
+    jump(){ 
         if(this.jumping===false){
-            
             this.vy-=5;
             this.jumping = true;
             this.stoppedfalling = false;
         }
     }
-    toggleMask(){
-        this.maskOn=!this.maskOn;
-        console.log("toggle"+this.maskOn);
+    wearMask(){
+        this.maskOn = true;
     }
     noMask(){
         this.maskOn = false;
-        console.log("noMask"+this.maskOn);
     }
-    stopFalling(yelement){
-        //if(yelement>this.y){
-            this.vy = 0;
+    stopFalling(xelement, yelement){
+        if(this.vy>0){
+            this.y = yelement-this.width;
+            this.vy = 0;//!!!!
             this.jumping = false;
             this.stoppedfalling = true;
-            //console.log("stopFalling");
-            //window.setTimeout(this.stopfalling = false, 1000);
-        //}
+        }
     }
-    stopJumping(){
-        this.vy*= -1;
+    /*stopJumping(){
+        ///this.vy*= -1;
         this.jumping = false;
         this.stoppedfalling = false;
         //console.log("stopJumping");
-    }
+    }*/
     walkfaster(){
         if(this.x<200){
-            this.x+=0.1;
+           // this.x+=0.1;
         }
     }
     move(dx, dy){
@@ -61,9 +55,9 @@ export class Player extends GameObject{
         this.y += dy; //+ this.gravitySpeed;
     }
     update(ctx){
-        if(!this.stoppedfalling){
+       // if(!this.stoppedfalling){
             this.vy+=0.1;
-        }
+       // }
         super.update(ctx);
         
     }

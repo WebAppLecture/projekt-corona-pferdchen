@@ -2,13 +2,13 @@ import {TakeObject } from "./gameObject.js";
 import { Player } from "./player.js";
 
 export class Mask extends TakeObject{
-    constructor(x,y,width,vx,vy,visible){
-        super(x, y, width, "#66FFCC", vx, vy,"../../src/sounds/mask.wav", true);
+    constructor(x,y,width,vx,vy){
+        super(x, y, width, "#66FFCC", vx, vy,"../../src/sounds/mask.wav");
         this.height = 20;
         this.x = x;
         this.y = y;
         this.width = width;
-        this.visible = visible;
+        
     }
     draw(ctx){
         ctx.fillStyle = this.color;

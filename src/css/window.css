@@ -5,7 +5,7 @@
 }
 
 body {
-    text-align: center;
+    
         background: radial-gradient(ellipse at center, rgb(64, 255, 77) 50%,  rgb(189, 9, 165) 100%);
 
 }
@@ -22,16 +22,16 @@ body {
     position: relative;
     box-sizing: border-box;
     width: fit-content;
-    height: fit-content;
+   
     background: chartreuse;
     display: block;
-    
+    border-radius: 10%;;
 }
 .logo {
     width: 100%;
     height: 7vh;
 
-    padding-left: 7vh;
+    padding-left: 20vh;
     padding-top: 0.5vh;
     font-size: 4vh;
     font-family: monospace;
@@ -47,11 +47,16 @@ body {
     cursor: pointer;
     box-shadow: 0 0 2vh 2vh black;
 }
+.toiletpaper {
+    bottom: 2vh;
+    left: 5vh;
+    position: relative;
+}
 .toiletpaper > * {
      display: inline-block;
      background: gray;
      left: 2vh;
-    bottom: 2vh;
+    
     width: 6vh;
     height: 6vh;
     border: 2vh solid white;
@@ -59,7 +64,7 @@ body {
     padding: .5vh 1vh ;
     margin-right: 2vh;
 }
-.toiletpaper:disabled{
+.toiletpaper > * :disabled{
     border: 2vh solid black;
 }
 .reset{
@@ -69,20 +74,22 @@ body {
     height:4vh;
 }
 .shoot{
-    right: 4vh;
-    bottom:5;
-    width: 7.5vh;
-    height:4vh;
+    
+    right: 10vh;
+    bottom:17;
+    
     
 }
 .button > * {
-    position:absolute;
+    position: absolute;
     cursor: pointer;
     border: 1vh double red;
     background: blueviolet;
-    font-size: 2vh;
+    font-size: 3vh;
     font-family: monospace;
     font-weight: bold;
+    width: fit-content;
+    height:fit-content;
 }
 .button > *:active {
     transform: scale(0.9);
