@@ -7,10 +7,15 @@ import mep from "./map.js";
 
 
 export class CoronaJump extends GameTemplate{
+    constructor(mode){
+        super(mode);
+        this.tpCounter = 0;
+    }
     start(){
         
         this.initObjects();
         this.pushMaps();
+        this.startSoundtrack();
     }
 
 
@@ -18,6 +23,7 @@ export class CoronaJump extends GameTemplate{
         this.player = new Player(200, 250, 30, 0 ,0 ,"#a77");
         this.gameOver = false;
         this.trail = [];
+        this.audio;
     }
 
     pushMaps(){
@@ -67,7 +73,7 @@ export class CoronaJump extends GameTemplate{
     }
     update(ctx){ 
         this.checkGameOver()
-        this.updatePlayer(ctx);
+        this.player.update(ctx);
         this.checkCollision();
         this.updateTrails(ctx);  
     }
@@ -85,13 +91,11 @@ export class CoronaJump extends GameTemplate{
 
     takeObject(element){//problem:maske wird zweimal aufgenommen?
         let taken = element.take();
-        console.log("Object-name: "+taken);
         switch (taken){
             case "1Maske":
                 this.player.noMask();
-                
                 this.player.wearMask();
-                setTimeout(() => {this.player.wearMask()}, 3000);
+                setTimeout(() => {this.player.noMask()}, 3000);
                 break;
             case "1Virus":
                 if(this.player.maskOn){
@@ -101,8 +105,28 @@ export class CoronaJump extends GameTemplate{
                 }
                 break;
             case "1TP":
+                this.addTP();
+                break;
+            case "1OWM":
+                this.stealTP();
                 break;
         }
+    }
+    addTP(){
+        let list = document.querySelector(".toiletpaper");
+        let tp = list.children[this.tpCounter];
+        tp.classList.add("taken");
+        this.tpCounter++;
+        console.log("GETcounter: "+this.tpCounter);
+    }
+    stealTP(){
+        if(this.tpCounter>0){
+            this.tpCounter--;
+            let list = document.querySelector(".toiletpaper");
+            let tp = list.children[this.tpCounter];
+            tp.classList.remove("taken");
+        }
+        console.log("LOSEcounter: "+this.tpCounter);
     }
     
     checkCollision(){
@@ -134,23 +158,24 @@ export class CoronaJump extends GameTemplate{
             
         }
     }
-    updatePlayer(ctx){
-        this.player.update(ctx);
-    }
+
     jump(){
         this.player.jump();
     }
     checkGameOver(){
-       this.gameOver = this.player.y>=600||this.player.x<=-50;
+       this.gameOver = (this.player.y >= 600 || this.player.x <= -50);
         if(this.gameOver){
+            this.audio.pause();
             console.log("Game over, x: "+this.player.x+" y: "+this.player.y);
         }
         
     }
     bindControls(){
-        /*this.inputBinding = {
-            ""
-        }*/
+    }
+    startSoundtrack(){
+        this.audio = new Audio("../../src/sounds/background2.wav");
+        this.audio.loop = true;
+        this.audio.play();
     }
     
 };

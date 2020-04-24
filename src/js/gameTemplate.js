@@ -3,7 +3,7 @@ export class GameTemplate {
     constructor(mode) {
         this.gameOverText = ["Game Over", "play again:"];
         this.fillStyle = "#000";
-       // this.applyMode(mode);
+        this.applyMode(mode);
         this.start();
         this.bindControls();
     }
@@ -34,6 +34,15 @@ export class GameTemplate {
         this.gameOverText.forEach((line, i) => {
             ctx.fillText(line, ctx.canvas.width/2, startY + i * fontSize);
         }); 
+    }
+    applyMode(mode){
+        if(!mode){
+            return;
+        }
+        if(mode==="h"){
+            console.log("healthy choice!");
+        }
+
     }
     /*input(type, active) {
         if(this.gameOver && type === "primary") {
