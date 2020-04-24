@@ -1,21 +1,130 @@
 * {
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
 }
 
 body {
-    text-align: center;
+    
+        background: radial-gradient(ellipse at center, rgb(64, 255, 77) 50%,  rgb(189, 9, 165) 100%);
+
+}
+.gameBox,
+.gameBox * {
+    font-family: monospace;
 }
 
-.gameBox {
+.centered {
+    margin: 0 auto;
+}
+
+.gameBox{
     position: relative;
+    box-sizing: border-box;
     width: fit-content;
+    
+    background: chartreuse;
+    display: block;
+    border-radius: 10%;;
 }
-
+.logo {
+    width: 100%;
+    height: 7vh;
+    position: relative;
+    padding-left: 20vh;
+    padding-top: 1.5vh;
+    font-size: 4vh;
+    
+    border-bottom: 2vh dotted greenyellow;
+    font-weight: bold;
+}
+.menu {
+    width: 33vh;
+    height: fit-content;
+    max-height: 60vh;
+    position: absolute;
+    font-size: 3vh;
+    top: 17vh;
+    left: 26vh;
+    color: darkgreen;
+    overflow-y: hidden;
+    text-align: center;
+    text-shadow: .5vh .5vh 1vh #333;
+}
+.hidden {
+    display: none;
+}
+.menu > * {
+    border: 1vh dotted darkgreen ;
+    border-radius: 40% 10%;
+    margin: 5vh;
+    font-weight: bold;
+    cursor: pointer;
+    
+}
+#h {
+    background: -webkit-linear-gradient(left, green, orange 50%, darkblue);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: .5vh .5vh 1vh darkorange;
+    
+}
+#d {
+    color: black;
+}
 .screen {
     width: 80vh;
     height: 40vh;
     background: skyblue;
     color: seagreen;
-
+    margin: 3vh;
+    cursor: pointer;
     box-shadow: 0 0 2vh 2vh black;
+}
+.toiletpaper {
+    bottom: 2vh;
+    left: 5vh;
+    position: relative;
+}
+.toiletpaper > * {
+     display: inline-block;
+     background: gray;
+     left: 2vh;
+    
+    width: 6vh;
+    height: 6vh;
+    border: 2vh solid greenyellow;
+    border-radius: 50%;
+    padding: .5vh 1vh ;
+    margin-right: 2vh;
+}
+.taken{
+    border: 2vh solid white;
+}
+.reset{
+    top:1.5vh;
+    left: 4vh;
+    width: 7.5vh;
+    height:4vh;
+}
+.shoot{
+    
+    right: 10vh;
+    bottom:17;
+    
+    
+}
+.button > * {
+    position: absolute;
+    cursor: pointer;
+    border: 1vh double red;
+    background: blueviolet;
+    font-size: 3vh;
+    font-family: monospace;
+    font-weight: bold;
+    width: fit-content;
+    height:fit-content;
+}
+.button > *:active {
+    transform: scale(0.9);
 }
