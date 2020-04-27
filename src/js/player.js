@@ -1,7 +1,8 @@
 import { GameObject, GroundObject } from "./gameObject.js";
+import {CONSTANTS} from "./constants.js";
 
 export class Player extends GameObject{
-    constructor(x, y, width, vx, vy,color){
+    constructor(x, y, width, color, vx, vy){
        super(x,y,width,color,vx,vy,false);
        this.y=y;
        this.width = width;
@@ -9,7 +10,7 @@ export class Player extends GameObject{
         this.jumping = false;
         this.stoppedfalling = false;
         this.maskOn = false;
-        
+        this.to;
     }
 //TODO: Kollision mit Bodenkante, runter fallen vom Boden oder wegschieben checken, 
 //      x<-50 oder y>400
@@ -19,18 +20,22 @@ export class Player extends GameObject{
     }
     jump(){ 
         if(this.jumping===false){
-            this.vy-=5;
+            this.vy+=CONSTANTS.jumpY;
             this.jumping = true;
             this.stoppedfalling = false;
         }
     }
     wearMask(){
+        if(this.maskOn){
+            clearTimeout(this.to);
+        }
         this.maskOn = true;
+        this.to = setTimeout(() => {this.noMask()}, 3500);
     }
     noMask(){
         this.maskOn = false;
     }
-    stopFalling(xelement, yelement){
+    stopFalling(yelement){
         if(this.vy>0){
             this.y = yelement-this.width;
             this.vy = 0;//!!!!
@@ -56,7 +61,7 @@ export class Player extends GameObject{
     }
     update(ctx){
        // if(!this.stoppedfalling){
-            this.vy+=0.1;
+            this.vy+=CONSTANTS.gravitY;
        // }
         super.update(ctx);
         
@@ -65,7 +70,7 @@ export class Player extends GameObject{
         ctx.fillStyle = this.color;
         ctx.fillRect(this.x, this.y, this.width, this.width);
         if(this.maskOn){
-            ctx.fillStyle = "#66FFCC";
+            ctx.fillStyle = CONSTANTS.maskColor;
             ctx.fillRect(this.x+15, this.y+17, 15, 11);
         }
     }

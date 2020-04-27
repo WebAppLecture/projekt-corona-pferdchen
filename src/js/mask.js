@@ -2,9 +2,9 @@ import {TakeObject } from "./gameObject.js";
 import { Player } from "./player.js";
 
 export class Mask extends TakeObject{
-    constructor(x,y,width,vx,vy){
-        super(x, y, width, "#66FFCC", vx, vy,"../../src/sounds/mask.wav");
-        this.height = 20;
+    constructor(x,y,width, height, color,vx,vy){
+        super(x, y, width, color, vx, vy);
+        this.height = height;
         this.x = x;
         this.y = y;
         this.width = width;
@@ -13,6 +13,7 @@ export class Mask extends TakeObject{
     draw(ctx){
         ctx.fillStyle = this.color;
         ctx.fillRect(this.x, this.y, this.width, this.height);
+        
     }
     collision(playerx,playery,playerwidth){
         return (this.x<playerx+playerwidth&&
