@@ -3,17 +3,17 @@ import { Neighbour, Toiletpaper, Virus, GroundObject, OldWhiteMan } from "./game
 import { Player } from "./player.js";
 import { Mask } from "./mask.js";
 import {CONSTANTS} from "./constants.js";
-import trail from "./map.js";
+import {Trail} from "./trail.js";
 
 
 
 export class CoronaJump extends GameTemplate{
 
     start(mode){
+        this.mode = mode;
         this.initObjects();
         this.startSoundtrack();
-        this.mode = mode;
-
+        
     }
 
     initObjects(){   
@@ -22,7 +22,7 @@ export class CoronaJump extends GameTemplate{
         this.gameOver = false;
         this.audio;
         this.tpCounter = 0;
-        this.trail = trail;
+        this.trail = new Trail(this.mode).trail;
     }
 
     shoot(){
