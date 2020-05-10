@@ -3,75 +3,28 @@ import { Neighbour, Toiletpaper, Virus, GroundObject, OldWhiteMan } from "./game
 import { Player } from "./player.js";
 import { Mask } from "./mask.js";
 import {CONSTANTS} from "./constants.js";
-import mep from "./map.js";
+import trail from "./map.js";
 
 
 
 export class CoronaJump extends GameTemplate{
-    start(){
-        this.initObjects();
-        
-        this.startSoundtrack();
-        this.tpCounter = 0;
-        this.trail = [];
-        this.pushMaps();
-    }
 
+    start(mode){
+        this.initObjects();
+        this.startSoundtrack();
+        this.mode = mode;
+
+    }
 
     initObjects(){   
         this.player = new Player(200, 250, CONSTANTS.playerWidth, 
             CONSTANTS.playerColor, CONSTANTS.playerMoveX, CONSTANTS.playerMoveY);
         this.gameOver = false;
         this.audio;
+        this.tpCounter = 0;
+        this.trail = trail;
     }
-    /*deleteGame(){
-        delete this.trail;
-        delete this.tick();
-        delete this;
-    }*/
 
-    pushMaps(){
-        
-        let trailmap = mep;
-        for(let i = 0; i<trailmap.length; i++){
-            let reihe = trailmap[i];
-            let inArray = [];
-            this.trail.push(inArray);
-            for(let r = 0; r< reihe.length; r++){
-                let symbol = reihe[r];
-                this.symbol = symbol;
-                let x = i*30;
-                let y = 400-((r+1)*30);
-                switch (this.symbol){
-                    case "_":
-                        break;
-                    case "1":
-                        inArray.push(new GroundObject(x, y, CONSTANTS.groundwidth,
-                            CONSTANTS.groundColor,CONSTANTS.speedTrailX, 0));
-                        break;
-                    case "2":
-                        inArray.push(new Mask(x,y,CONSTANTS.maskWidth, CONSTANTS.maskHeight,
-                            CONSTANTS.maskColor,CONSTANTS.speedTrailX,0));
-                        break;
-                    case "3":
-                        inArray.push(new Toiletpaper(x,y, CONSTANTS.TPradius,
-                             CONSTANTS.speedTrailX, 0));
-                        break;
-                    case "4":
-                        inArray.push(new Virus(x,y, CONSTANTS.Vradius, CONSTANTS.VouterColor,
-                            CONSTANTS.VinnerColor,CONSTANTS.speedTrailX, 0));
-                        break;
-                    case "5":
-                        inArray.push(new OldWhiteMan(x,y,CONSTANTS.OWMradius,
-                            CONSTANTS.OWMfaceColor ,CONSTANTS.speedTrailX, 0));
-                        break;
-                    case "6":
-                        inArray.push(new Neighbour(x,y,CONSTANTS.NBradius,
-                            CONSTANTS.NBfaceColor, CONSTANTS.speedTrailX, 0));
-                }
-            }
-        }
-    }
     shoot(){
         let shootAudio = new Audio("../../src/sounds/cough.wav");
         shootAudio.play();
@@ -82,7 +35,6 @@ export class CoronaJump extends GameTemplate{
         this.trail.forEach(element => {
             element.forEach(innerele => {
                 innerele.draw(ctx);
-            
         });
     });
         
@@ -92,7 +44,6 @@ export class CoronaJump extends GameTemplate{
         this.player.update(ctx);
         this.checkCollision();
         this.updateTrails(ctx);  
-        console.log("u");
     }
 
     showGameoverScreen(ctx){
@@ -160,7 +111,7 @@ export class CoronaJump extends GameTemplate{
                         } if(element.x>=this.player.x+this.player.width-1&&
                             element.y<this.player.y+this.player.width-2&&
                             element.y>this.player.y-element.width){ //not-takeable element is on the side
-                                this.player.pushAside(-1);
+                                this.player.pushAside(element.x);
                         }
                         this.checkhumanCollision(element);
                     }
@@ -169,22 +120,27 @@ export class CoronaJump extends GameTemplate{
             if(reihe[0]){
                 if(reihe[0].x <= -100){
                 this.trail.shift();}
-            }
-            
+            }          
         }
     }
     checkhumanCollision(element){
         if(element.human){
-            let wtf = element.meet();
-            if(wtf=="1OWM"){
+            let humanName = element.meet();
+            if(humanName=="1OWM"){
                 this.stealTP();
-            } else if(wtf=="1NB"){
+            } else if(humanName=="1NB"){
                 this.checkWin();
             }
         }
     }
-    jump(){
-        this.player.jump();
+    clicked(){
+        if(!this.gameOver){
+            this.player.jump(); //wenn Spiel läuft, bei click hüpfen
+        } else {
+            location.reload(); //bei Game over reload
+            console.log("reload");
+        }
+        
     }
     checkWin(){
         if(this.tpCounter>=5){
@@ -202,8 +158,6 @@ export class CoronaJump extends GameTemplate{
         }
         
     }
-    /*bindControls(){
-    }*/
     startSoundtrack(){
         this.audio = new Audio("../../src/sounds/background2.wav");
         this.audio.loop = true;

@@ -6,7 +6,7 @@ CONSTANTS.speedTrailX = -1;
 
 //Player
 CONSTANTS.gravitY = 0.2 ;
-CONSTANTS.jumpY = -7;
+CONSTANTS.jumpY = -8;
 CONSTANTS.playerColor = "#a77";
 CONSTANTS.playerWidth = 30;
 CONSTANTS.playerMoveX = 0;
