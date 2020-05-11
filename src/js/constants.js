@@ -39,6 +39,7 @@ CONSTANTS.OWMradius = 25;
 CONSTANTS.Vradius = 15;
 CONSTANTS.VinnerColor = "#80FF00";
 CONSTANTS.VouterColor = "red";
+CONSTANTS.VshadowColor = "yellow";
 
 //Neighbour
 CONSTANTS.NBfaceColor = "#ffd6e7";

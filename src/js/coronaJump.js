@@ -1,7 +1,7 @@
 import {GameTemplate } from "./gameTemplate.js";
-import { Neighbour, Toiletpaper, Virus, GroundObject, OldWhiteMan } from "./gameObject.js";
+//import { Neighbour, Toiletpaper, Virus, GroundObject, OldWhiteMan } from "./GameObjects/gameObject.js";
 import { Player } from "./player.js";
-import { Mask } from "./mask.js";
+import { Mask } from "./GameObjects/mask.js";
 import {CONSTANTS} from "./constants.js";
 import {Trail} from "./trail.js";
 
@@ -21,7 +21,7 @@ export class CoronaJump extends GameTemplate{
             CONSTANTS.playerColor, CONSTANTS.playerMoveX, CONSTANTS.playerMoveY);
         this.gameOver = false;
         this.audio;
-        this.tpCounter = 0;
+        this.counter = 0;
         this.trail = new Trail(this.mode).trail;
     }
 
@@ -68,27 +68,27 @@ export class CoronaJump extends GameTemplate{
                 if(this.player.maskOn){
                     this.player.noMask();
                 } else {
-                    this.gameOver = true;
+                    this.player.infect();
                 }
                 break;
             case "1TP":
-                this.addTP();
+                this.countUP();
                 break;
         }
     }
-    addTP(){
-        if(this.tpCounter<6){
+    countUP(){ //nicht im Dark-mode
+        if(this.counter<6){ //nur einmal anstecken!!
             let list = document.querySelector(".toiletpaper");
-            let tp = list.children[this.tpCounter];
+            let tp = list.children[this.counter];
             tp.classList.add("taken");
-            this.tpCounter++;
+            this.counter++;
         }
     }
     stealTP(){
-        if(this.tpCounter>0){
-            this.tpCounter--;
+        if(this.counter>0){
+            this.counter--;
             let list = document.querySelector(".toiletpaper");
-            let tp = list.children[this.tpCounter];
+            let tp = list.children[this.counter];
             tp.classList.remove("taken");
         }
     }
@@ -126,10 +126,15 @@ export class CoronaJump extends GameTemplate{
     checkhumanCollision(element){
         if(element.human){
             let humanName = element.meet();
-            if(humanName=="1OWM"){
-                this.stealTP();
-            } else if(humanName=="1NB"){
-                this.checkWin();
+            if(this.mode=="h"){
+                if(humanName=="1OWM"){
+                    this.stealTP();
+                } else if(humanName=="1NB"){
+                    this.checkWin();
+                }
+            } else  if(humanName && this.player.infected){
+                    this.countUP();
+                
             }
         }
     }
@@ -138,12 +143,11 @@ export class CoronaJump extends GameTemplate{
             this.player.jump(); //wenn Spiel läuft, bei click hüpfen
         } else {
             location.reload(); //bei Game over reload
-            console.log("reload");
         }
         
     }
     checkWin(){
-        if(this.tpCounter>=5){
+        if(this.counter>=5){
             this.won = true;
             
         }
@@ -151,10 +155,10 @@ export class CoronaJump extends GameTemplate{
         this.gameOver = true;
     }
     checkGameOver(){
-       this.gameOver = (this.player.y >= 600 || this.player.x <= -50);
+        let healthOver = this.mode == "h" && this.player.infected;
+       this.gameOver = (healthOver || this.player.y >= 600 || this.player.x <= -50);
         if(this.gameOver){
             this.audio.pause();
-            
         }
         
     }
@@ -163,6 +167,5 @@ export class CoronaJump extends GameTemplate{
         this.audio.loop = true;
         this.audio.play();
     }
-    
-};
+}
 

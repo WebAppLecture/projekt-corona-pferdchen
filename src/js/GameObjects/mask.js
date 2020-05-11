@@ -1,5 +1,5 @@
 import {TakeObject } from "./gameObject.js";
-import { Player } from "./player.js";
+import { Player } from "../player.js";
 
 export class Mask extends TakeObject{
     constructor(x,y,width, height, color,vx,vy){

@@ -5,7 +5,7 @@ export class GameTemplate {
         this.wonText = ["Juhu!", "Thank you for", "the toiletpaper!", "click to", "play again"]
         this.gameOverText = ["Game Over", "", "click to", "play again"];
         this.fillStyle = "#000";
-        //this.applyMode(mode);
+        
         this.start(mode);
         //this.bindControls();
     }
@@ -37,13 +37,7 @@ export class GameTemplate {
         }); 
         
     }
-    /*applyMode(mode){
-        if(!mode){
-            return;
-        }
-        if(mode==="h"){
-           console.log("h");
-        }
-
-    }*/
+    
 }
+    
+    

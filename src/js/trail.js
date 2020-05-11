@@ -1,12 +1,11 @@
 import {hMap, dMap} from "./map.js";
-import { Neighbour, Toiletpaper, Virus, GroundObject, OldWhiteMan } from "./gameObject.js";
+import { Neighbour, Toiletpaper, Virus, GroundObject} from "./GameObjects/gameObject.js";
+import { OldWhiteMan } from "./GameObjects/oldWhiteMan.js";
 import {CONSTANTS} from "./constants.js";
-import { Mask } from "./mask.js";
+import { Mask } from "./GameObjects/mask.js";
 
 export class Trail {
     constructor(mode){
-        this.mode = mode;
-        console.log("trail:"+this.mode);
         if(mode=="h"){
             this.map = hMap;
         } else {
