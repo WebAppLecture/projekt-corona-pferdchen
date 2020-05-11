@@ -75,7 +75,6 @@ export class Player extends GameObject{
                 ctx.arc(maskX, maskY, 11, stueck, stueck+teil);
                 ctx.strokeStyle = CONSTANTS.VouterColor;
                 ctx.stroke();
-                ctx.lineWidth =1;
                 ctx.fill();
             }
             ctx.shadowBlur = 20;

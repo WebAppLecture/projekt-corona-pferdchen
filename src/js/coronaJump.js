@@ -1,7 +1,7 @@
 import {GameTemplate } from "./gameTemplate.js";
-//import { Neighbour, Toiletpaper, Virus, GroundObject, OldWhiteMan } from "./GameObjects/gameObject.js";
+
 import { Player } from "./player.js";
-import { Mask } from "./GameObjects/mask.js";
+// import { Mask } from "./GameObjects/mask.js";
 import {CONSTANTS} from "./constants.js";
 import {Trail} from "./trail.js";
 
@@ -62,7 +62,7 @@ export class CoronaJump extends GameTemplate{
         switch (taken){
             case "1Maske":
                 this.player.wearMask();
-                
+                //this.trail[i].splice(this.trail[i].indexOf(element),1);
                 break;
             case "1Virus":
                 if(this.player.maskOn){
@@ -70,18 +70,43 @@ export class CoronaJump extends GameTemplate{
                 } else {
                     this.player.infect();
                 }
+    
                 break;
             case "1TP":
                 this.countUP();
+                //this.trail[i].splice(this.trail[i].indexOf(element),1);
+                break;
+            case "1OWM":
+                this.meetOldMan(element);
+                break;
+            case "1NB":
+                this.meetNeigbour(element);
                 break;
         }
     }
-    countUP(){ //nicht im Dark-mode
+    countUP(){ 
         if(this.counter<6){ //nur einmal anstecken!!
             let list = document.querySelector(".toiletpaper");
             let tp = list.children[this.counter];
             tp.classList.add("taken");
             this.counter++;
+        }
+    }
+    meetOldMan(element){
+        if(this.mode=="h"){ //im health-mode tp klauen
+            this.stealTP(); //im Dark-mode infizieren oder nichts
+        } else if(this.player.infected){
+            this.countUP();
+            element.infect();
+        }
+        
+    }
+    meetNeigbour(element){
+        if(this.mode=="h"){ 
+            this.checkWin(); 
+        } else if(this.player.infected){
+            this.countUP();
+            element.infect();
         }
     }
     stealTP(){
@@ -102,7 +127,9 @@ export class CoronaJump extends GameTemplate{
                 if(element.collision(this.player.x,this.player.y,this.player.width)){
                     if(element.takeable){ //nehmbares Element
                         this.takeObject(element);
-                        this.trail[i].splice(this.trail[i].indexOf(element),1);
+                        if(!element.human){
+                            this.trail[i].splice(this.trail[i].indexOf(element),1);
+                        }
                     } 
                     else{ 
                         if(element.y<this.player.y+this.player.width+1&&
@@ -113,7 +140,6 @@ export class CoronaJump extends GameTemplate{
                             element.y>this.player.y-element.width){ //not-takeable element is on the side
                                 this.player.pushAside(element.x);
                         }
-                        this.checkhumanCollision(element);
                     }
                 }
             }
@@ -123,7 +149,7 @@ export class CoronaJump extends GameTemplate{
             }          
         }
     }
-    checkhumanCollision(element){
+    /*checkhumanCollision(element){
         if(element.human){
             let humanName = element.meet();
             if(this.mode=="h"){
@@ -137,7 +163,7 @@ export class CoronaJump extends GameTemplate{
                 
             }
         }
-    }
+    }*/
     clicked(){
         if(!this.gameOver){
             this.player.jump(); //wenn Spiel läuft, bei click hüpfen
@@ -149,7 +175,8 @@ export class CoronaJump extends GameTemplate{
     checkWin(){
         if(this.counter>=5){
             this.won = true;
-            
+            let wonaudio = new Audio("../../src/sounds/won.wav");
+            wonaudio.play();
         }
         this.audio.pause();
         this.gameOver = true;

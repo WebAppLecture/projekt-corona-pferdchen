@@ -1,5 +1,7 @@
 import { CoronaJump } from "./coronaJump.js";
 import { CONSTANTS } from "./constants.js";
+import { OldWhiteMan } from "./GameObjects/oldWhiteMan.js";
+import { Neighbour } from "./GameObjects/neigbour.js";
 
 export class GameEngine {
 
@@ -37,8 +39,11 @@ export class GameEngine {
             modes[i].addEventListener("click", () => this.loadGame(name));
         }
         let ctx = this.renderContext;
-        this.drawOpi(ctx);
-        this.drawOmi(ctx);
+        let opi = new OldWhiteMan(680,270, 30, CONSTANTS.OWMfaceColor,0,0);
+        opi.draw(ctx);
+        let omi = new Neighbour(170, 170, 30, CONSTANTS.NBfaceColor, 0,0);
+        omi.draw(ctx);
+        //this.drawOmi(ctx);
 
     }
     setupCanvas() {
@@ -66,30 +71,7 @@ export class GameEngine {
         this.game.tick(this.renderContext); //ctx
        }
     }
-    drawOpi(ctx){
-        
-        ctx.beginPath();
-        ctx.arc(700, 200, 30, 4.2, 0.5);
-        ctx.fillStyle = CONSTANTS.OWMhairColor;
-        ctx.fill();
-
-        ctx.beginPath();
-        ctx.arc(700, 200, 30-7, 0, 2 * Math.PI);
-        ctx.fillStyle = CONSTANTS.OWMfaceColor;
-        ctx.fill();
-
-        ctx.beginPath();
-        ctx.moveTo(700-12, 200-6);
-        ctx.arc(700-12, 200-6, 8, 5.5, 2.5);
-        ctx.fillStyle = CONSTANTS.EyeColor;
-        ctx.fill();
-        
-        ctx.beginPath();
-        ctx.strokeStyle= CONSTANTS.EyeColor;
-        ctx.moveTo(700-8,200+10);
-        ctx.lineTo(700-18,200+10);
-        ctx.stroke();
-    }
+    
     drawOmi(ctx){
         
         ctx.beginPath();

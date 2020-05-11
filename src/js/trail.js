@@ -1,5 +1,8 @@
 import {hMap, dMap} from "./map.js";
-import { Neighbour, Toiletpaper, Virus, GroundObject} from "./GameObjects/gameObject.js";
+import { GroundObject} from "./GameObjects/gameObject.js";
+import { Virus } from "./GameObjects/virus.js";
+import { Toiletpaper } from "./GameObjects/toiletPaper.js";
+import { Neighbour } from "./GameObjects/neigbour.js";
 import { OldWhiteMan } from "./GameObjects/oldWhiteMan.js";
 import {CONSTANTS} from "./constants.js";
 import { Mask } from "./GameObjects/mask.js";
