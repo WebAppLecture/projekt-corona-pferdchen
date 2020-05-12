@@ -81,16 +81,18 @@ body {
     cursor: pointer;
     box-shadow: 0 0 2vh 2vh black;
 }
+.dark {
+    background: #bbb;
+}
 .toiletpaper {
     bottom: 2vh;
     left: 5vh;
     position: relative;
 }
 .toiletpaper > * {
-     display: inline-block;
-     background: gray;
-     left: 2vh;
-    
+    display: inline-block;
+    background: gray;
+    left: 2vh;
     width: 6vh;
     height: 6vh;
     border: 2vh solid greenyellow;
@@ -98,6 +100,10 @@ body {
     padding: .5vh 1vh ;
     margin-right: 2vh;
 }
+.people{
+    background: greenyellow;
+}
+
 .taken{
     border: 2vh solid white;
 }

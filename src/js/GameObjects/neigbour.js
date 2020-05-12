@@ -11,8 +11,12 @@ export class Neighbour extends TakeObject{
         this.facecolor = facecolor;
         this.human = true;
         this.met = false;
+        this.infected = false;
     }
     draw(ctx){
+        if(this.infected){
+            this.facecolor = CONSTANTS.infectedFaceW;
+        }
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.width, 0, 2 * Math.PI);
         ctx.fillStyle = this.facecolor;
@@ -28,12 +32,16 @@ export class Neighbour extends TakeObject{
         ctx.beginPath();
         ctx.moveTo(this.x-12, this.y-6);
         ctx.arc(this.x-10, this.y-4, 6, 0, 2 * Math.PI);
-        ctx.fillStyle = "black";
+        ctx.fillStyle = CONSTANTS.EyeColor;
         ctx.fill();
         
         ctx.beginPath();
-        ctx.strokeStyle= "black";
-        ctx.arc(this.x-this.width/2, this.y+this.width*0.1, this.width/1.7, 0.2, 0.6 * Math.PI);
+        ctx.strokeStyle= CONSTANTS.EyeColor;
+        if(this.infected){
+            ctx.arc(this.x-this.width*0.5, this.y+this.width, this.width*0.6, 4.2, 5.5);
+        } else {
+            ctx.arc(this.x-this.width/2, this.y+this.width*0.1, this.width*0.6, 0.2, 0.6 * Math.PI);
+        }
         ctx.stroke();
 
         
@@ -45,7 +53,7 @@ export class Neighbour extends TakeObject{
         }
     }
     infect(){
-        this.facecolor = "green";
+        this.infected = true;
     }
     collision(playerx,playery,playerwidth){
         return (playerx>this.x-this.width-playerwidth&&

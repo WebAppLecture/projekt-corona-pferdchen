@@ -13,7 +13,6 @@ export class CoronaJump extends GameTemplate{
         this.mode = mode;
         this.initObjects();
         this.startSoundtrack();
-        
     }
 
     initObjects(){   
@@ -23,6 +22,8 @@ export class CoronaJump extends GameTemplate{
         this.audio;
         this.counter = 0;
         this.trail = new Trail(this.mode).trail;
+        this.countlist = document.querySelector(".toiletpaper"); //bei "d"-mode: css-klasse ändern
+
     }
 
     shoot(){
@@ -62,7 +63,6 @@ export class CoronaJump extends GameTemplate{
         switch (taken){
             case "1Maske":
                 this.player.wearMask();
-                //this.trail[i].splice(this.trail[i].indexOf(element),1);
                 break;
             case "1Virus":
                 if(this.player.maskOn){
@@ -70,11 +70,9 @@ export class CoronaJump extends GameTemplate{
                 } else {
                     this.player.infect();
                 }
-    
                 break;
             case "1TP":
                 this.countUP();
-                //this.trail[i].splice(this.trail[i].indexOf(element),1);
                 break;
             case "1OWM":
                 this.meetOldMan(element);
@@ -85,15 +83,14 @@ export class CoronaJump extends GameTemplate{
         }
     }
     countUP(){ 
-        if(this.counter<6){ //nur einmal anstecken!!
-            let list = document.querySelector(".toiletpaper");
-            let tp = list.children[this.counter];
+        if(this.counter<6){ 
+            let tp = this.countlist.children[this.counter];
             tp.classList.add("taken");
             this.counter++;
         }
     }
     meetOldMan(element){
-        if(this.mode=="h"){ //im health-mode tp klauen
+        if(this.mode){ //im health-mode tp klauen
             this.stealTP(); //im Dark-mode infizieren oder nichts
         } else if(this.player.infected){
             this.countUP();
@@ -102,7 +99,7 @@ export class CoronaJump extends GameTemplate{
         
     }
     meetNeigbour(element){
-        if(this.mode=="h"){ 
+        if(this.mode){ 
             this.checkWin(); 
         } else if(this.player.infected){
             this.countUP();
@@ -112,8 +109,7 @@ export class CoronaJump extends GameTemplate{
     stealTP(){
         if(this.counter>0){
             this.counter--;
-            let list = document.querySelector(".toiletpaper");
-            let tp = list.children[this.counter];
+            let tp = this.countlist.children[this.counter];
             tp.classList.remove("taken");
         }
     }
@@ -135,7 +131,7 @@ export class CoronaJump extends GameTemplate{
                         if(element.y<this.player.y+this.player.width+1&&
                             element.y>this.player.y-element.width){
                                 this.player.stopFalling(element.y);
-                        } if(element.x>=this.player.x+this.player.width-1&&
+                        } if(element.x>=this.player.x+this.player.width-2&&
                             element.y<this.player.y+this.player.width-2&&
                             element.y>this.player.y-element.width){ //not-takeable element is on the side
                                 this.player.pushAside(element.x);
@@ -182,7 +178,7 @@ export class CoronaJump extends GameTemplate{
         this.gameOver = true;
     }
     checkGameOver(){
-        let healthOver = this.mode == "h" && this.player.infected;
+        let healthOver = this.mode && this.player.infected;
        this.gameOver = (healthOver || this.player.y >= 600 || this.player.x <= -50);
         if(this.gameOver){
             this.audio.pause();

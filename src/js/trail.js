@@ -9,10 +9,12 @@ import { Mask } from "./GameObjects/mask.js";
 
 export class Trail {
     constructor(mode){
-        if(mode=="h"){
+        if(mode){
             this.map = hMap;
+            this.groundColor=CONSTANTS.groundColor;
         } else {
             this.map =dMap;
+            this.groundColor=CONSTANTS.darkGroundColor;
         }
         this.trail = [];
         this.setupMap();
@@ -33,7 +35,7 @@ export class Trail {
                         break;
                     case "1":
                         inArray.push(new GroundObject(x, y, CONSTANTS.groundwidth,
-                            CONSTANTS.groundColor,CONSTANTS.speedTrailX, 0));
+                            this.groundColor,CONSTANTS.speedTrailX, 0));
                         break;
                     case "2":
                         inArray.push(new Mask(x,y,CONSTANTS.maskWidth, CONSTANTS.maskHeight,

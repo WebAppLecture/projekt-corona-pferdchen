@@ -37,7 +37,7 @@ export class OldWhiteMan extends TakeObject {
     }
     infect(){
         this.infected = true;
-        this.facecolor = "green";
+        this.facecolor = CONSTANTS.infectedFaceM;
     }
     take(){
         if(!this.met){

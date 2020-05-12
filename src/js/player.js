@@ -44,13 +44,17 @@ export class Player extends GameObject{
     wearMask(){
         if(this.maskOn){
             clearTimeout(this.to);
+            console.log("clearTO");
         }
         this.infected = false;
         this.maskOn = true;
+        console.log("maskOn: "+this.maskOn);
         this.to = setTimeout(() => {this.noMask()}, 4000);
     }
     noMask(){
+        clearTimeout(this.to);
         this.maskOn = false;
+        console.log("noMask");
     }
     update(ctx){
         this.walkfaster();

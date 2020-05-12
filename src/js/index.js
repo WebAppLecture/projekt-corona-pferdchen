@@ -6,7 +6,8 @@ window.gameEngine = new GameEngine(
     document.querySelector(".screen"),
     document.querySelector(".menu"),
     document.querySelector(".shoot"),
-    document.querySelector(".reset")
+    document.querySelector(".reset"),
+    document.querySelector(".toiletpaper"),
    );
    
 
