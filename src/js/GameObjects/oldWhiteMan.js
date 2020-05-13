@@ -1,12 +1,9 @@
 import { TakeObject } from "./gameObject.js";
-import { CONSTANTS } from "../constants.js"; 
+import Config from "../config.js";
 
 export class OldWhiteMan extends TakeObject {
-    constructor(x,y, width, facecolor, vx,vy){
-        super(x, y, width, facecolor, vx,vy);
-        this.x = x;
-        this.y = y;
-        this.width = width;
+    constructor(x,y, width, facecolor, vx){
+        super(x, y, width, facecolor, vx);
         this.facecolor = facecolor;
         this.human = true;
         this.infected = false;
@@ -15,7 +12,7 @@ export class OldWhiteMan extends TakeObject {
     draw(ctx){
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.width+7, 4.2, 0.5);
-        ctx.fillStyle = CONSTANTS.OWMhairColor;
+        ctx.fillStyle = Config.OWM_HAIR_COLOR;
         ctx.fill();
 
         ctx.beginPath();
@@ -26,18 +23,18 @@ export class OldWhiteMan extends TakeObject {
         ctx.beginPath();
         ctx.moveTo(this.x-this.width/2, this.y-this.width*0.3);
         ctx.arc(this.x-this.width/2, this.y-this.width*0.3, this.width/3, 5.5, 2.5);
-        ctx.fillStyle = CONSTANTS.EyeColor;
+        ctx.fillStyle = Config.EYE_COLOR;
         ctx.fill();
         
         ctx.beginPath();
-        ctx.strokeStyle= CONSTANTS.EyeColor;
+        ctx.strokeStyle= Config.EYE_COLOR;
         ctx.moveTo(this.x-this.width*0.9,this.y+this.width/2);
         ctx.lineTo(this.x-this.width*0.3,this.y+this.width/2);
         ctx.stroke();
     }
     infect(){
         this.infected = true;
-        this.facecolor = CONSTANTS.infectedFaceM;
+        this.facecolor = Config.OWM_I_FACE;
     }
     take(){
         if(!this.met){

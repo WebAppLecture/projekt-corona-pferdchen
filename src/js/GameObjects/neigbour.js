@@ -1,12 +1,10 @@
-import { CONSTANTS } from "../constants.js";
-import { GameObject, TakeObject } from "./gameObject.js";
+import { TakeObject } from "./gameObject.js";
+import Config from "../config.js";
 
 
 export class Neighbour extends TakeObject{
-    constructor(x,y, radius, facecolor, vx,vy){
-        super(x, y, radius, facecolor, vx,vy);
-        this.x = x;
-        this.y = y;
+    constructor(x,y, radius, facecolor, vx){
+        super(x, y, radius, facecolor, vx);
         this.width = radius;
         this.facecolor = facecolor;
         this.human = true;
@@ -14,9 +12,6 @@ export class Neighbour extends TakeObject{
         this.infected = false;
     }
     draw(ctx){
-        if(this.infected){
-            this.facecolor = CONSTANTS.infectedFaceW;
-        }
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.width, 0, 2 * Math.PI);
         ctx.fillStyle = this.facecolor;
@@ -26,17 +21,17 @@ export class Neighbour extends TakeObject{
             let hairY = this.width*Math.sin((40+(h*4))/9);
             ctx.beginPath();
             ctx.arc(hairX+this.x, hairY+this.y, 10, 0, 2*Math.PI);
-            ctx.fillStyle = CONSTANTS.NBhairColor;
+            ctx.fillStyle = Config.NB_HAIR_COLOR;
             ctx.fill();
         }
         ctx.beginPath();
         ctx.moveTo(this.x-12, this.y-6);
         ctx.arc(this.x-10, this.y-4, 6, 0, 2 * Math.PI);
-        ctx.fillStyle = CONSTANTS.EyeColor;
+        ctx.fillStyle = Config.EYE_COLOR;
         ctx.fill();
         
         ctx.beginPath();
-        ctx.strokeStyle= CONSTANTS.EyeColor;
+        ctx.strokeStyle= Config.EYE_COLOR;
         if(this.infected){
             ctx.arc(this.x-this.width*0.5, this.y+this.width, this.width*0.6, 4.2, 5.5);
         } else {
@@ -54,6 +49,7 @@ export class Neighbour extends TakeObject{
     }
     infect(){
         this.infected = true;
+        this.facecolor = Config.NB_I_FACE;
     }
     collision(playerx,playery,playerwidth){
         return (playerx>this.x-this.width-playerwidth&&

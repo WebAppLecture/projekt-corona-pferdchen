@@ -1,10 +1,10 @@
-import { CONSTANTS } from "../constants.js";
 import { TakeObject } from "./gameObject.js";
+import Config from "../config.js";
 
 export class Virus extends TakeObject{
 
-    constructor(x, y, width, outerColor, innerColor,vx,vy){
-        super(x,y,width,innerColor,vx,vy);
+    constructor(x, y, width, outerColor, innerColor,vx){
+        super(x,y,width,innerColor,vx);
         this.outerColor = outerColor;
         this.innerColor = innerColor;
     }
@@ -22,7 +22,7 @@ export class Virus extends TakeObject{
             ctx.fill();
         }
         ctx.shadowBlur = 50;
-        ctx.shadowColor = CONSTANTS.VshadowColor;
+        ctx.shadowColor = Config.V_SHADOW_COLOR;
         
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.width, 0, 2 * Math.PI);

@@ -1,9 +1,8 @@
 import {GameTemplate } from "./gameTemplate.js";
 
 import { Player } from "./player.js";
-// import { Mask } from "./GameObjects/mask.js";
-import {CONSTANTS} from "./constants.js";
 import {Trail} from "./trail.js";
+import Config from "./config.js";
 
 
 
@@ -16,8 +15,8 @@ export class CoronaJump extends GameTemplate{
     }
 
     initObjects(){   
-        this.player = new Player(200, 250, CONSTANTS.playerWidth, 
-            CONSTANTS.playerColor, CONSTANTS.playerMoveX, CONSTANTS.playerMoveY);
+        this.player = new Player(Config.PLAYER_X, Config.PLAYER_Y, Config.PLAYER_WIDTH, 
+            Config.PLAYER_COLOR, Config.PLAYER_MOVE_X, Config.PLAYER_MOVE_Y);
         this.gameOver = false;
         this.audio;
         this.counter = 0;
@@ -145,21 +144,7 @@ export class CoronaJump extends GameTemplate{
             }          
         }
     }
-    /*checkhumanCollision(element){
-        if(element.human){
-            let humanName = element.meet();
-            if(this.mode=="h"){
-                if(humanName=="1OWM"){
-                    this.stealTP();
-                } else if(humanName=="1NB"){
-                    this.checkWin();
-                }
-            } else  if(humanName && this.player.infected){
-                    this.countUP();
-                
-            }
-        }
-    }*/
+
     clicked(){
         if(!this.gameOver){
             this.player.jump(); //wenn Spiel läuft, bei click hüpfen

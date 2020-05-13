@@ -21,10 +21,9 @@ export class GameEngine {
 
     loadGame(healthyMode) {
         this.game = new CoronaJump(healthyMode);
-        console.log("healthyMode: " + healthyMode);
         this.hideMenu();
         this.screen.addEventListener("mousedown", ()=> this.game.clicked());
-        this.changeScreen();
+        this.changeScreen(healthyMode);
         this.gameLoop();
         this.activateButtons();
 

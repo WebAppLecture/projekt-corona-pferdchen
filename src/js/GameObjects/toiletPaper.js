@@ -1,31 +1,30 @@
-import { CONSTANTS } from "../constants.js";
 import { TakeObject } from "./gameObject.js";
+import Config from "../config.js";
 
 
 export class Toiletpaper extends TakeObject{
-    constructor(x,y,width, vx,vy){
-        super(x,y, width,CONSTANTS.TPouterColor, vx,vy);
-        this.width = width;
+    constructor(x,y,width, vx){
+        super(x,y, width,Config.TP_OUTER_COLOR, vx);
     }
     draw(ctx){
         for(let i= this.width;i>5; i-=4){
             ctx.beginPath();
             ctx.arc(this.x, this.y, i, 0, 2 * Math.PI);
-            ctx.fillStyle = CONSTANTS.TPouterColor;
+            ctx.fillStyle = this.color;
             ctx.fill();
             ctx.lineWidth = 0.7;
-            ctx.strokeStyle = CONSTANTS.TPlineColor;
+            ctx.strokeStyle = Config.TP_LINE_COLOR;
             ctx.stroke();
         }
         ctx.beginPath();
             ctx.arc(this.x, this.y, 6, 0, 2 * Math.PI);
-            ctx.fillStyle = CONSTANTS.TPinnerColor;
+            ctx.fillStyle = Config.TP_INNER_COLOR;
             ctx.fill();
         
     }
-    push(dx, dy){S
+    /*push(dx, dy){
         super.push(dx,dy);
-    }
+    }*/
     update(){
         super.update();
     }

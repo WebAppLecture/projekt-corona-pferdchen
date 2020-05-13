@@ -1,5 +1,5 @@
-import { GameObject, GroundObject } from "./GameObjects/gameObject.js";
-import {CONSTANTS} from "./constants.js";
+import { GameObject } from "./GameObjects/gameObject.js";
+import Config from "./config.js";
 
 export class Player extends GameObject{
     constructor(x, y, width, color, vx, vy){
@@ -18,7 +18,7 @@ export class Player extends GameObject{
 
     jump(){ 
         if(this.jumping===false){
-            this.vy+=CONSTANTS.jumpY;
+            this.vy+=Config.JUMP_Y;
             this.jumping = true;
         }
     }
@@ -32,8 +32,8 @@ export class Player extends GameObject{
     }
     
     walkfaster(){
-        if(this.oldX==this.x && this.x<195){
-            this.x+=0.1;
+        if(this.oldX==this.x && this.x<Config.PLAYER_X-5){
+            this.x+=Config.PLAYER_FASTER;
         }
     }
 
@@ -44,22 +44,19 @@ export class Player extends GameObject{
     wearMask(){
         if(this.maskOn){
             clearTimeout(this.to);
-            console.log("clearTO");
         }
         this.infected = false;
         this.maskOn = true;
-        console.log("maskOn: "+this.maskOn);
         this.to = setTimeout(() => {this.noMask()}, 4000);
     }
     noMask(){
         clearTimeout(this.to);
         this.maskOn = false;
-        console.log("noMask");
     }
     update(ctx){
         this.walkfaster();
         this.oldX = this.x;
-        this.vy+=CONSTANTS.gravitY;
+        this.vy+=Config.GRAVITY_Y;
         super.update(ctx);
     }
     draw(ctx){
@@ -68,7 +65,7 @@ export class Player extends GameObject{
         ctx.fillStyle = this.color;
         ctx.fillRect(this.x, this.y, this.width, this.width);
         if(this.maskOn){
-            ctx.fillStyle = CONSTANTS.maskColor;
+            ctx.fillStyle = Config.MASK_COLOR;
             ctx.fillRect(this.x+15, this.y+17, 15, 11);
         }
         if (this.infected){
@@ -77,16 +74,16 @@ export class Player extends GameObject{
                 ctx.beginPath();
                 let stueck =teil*i;
                 ctx.arc(maskX, maskY, 11, stueck, stueck+teil);
-                ctx.strokeStyle = CONSTANTS.VouterColor;
+                ctx.strokeStyle = Config.V_OUTER_COLOR;
                 ctx.stroke();
                 ctx.fill();
             }
             ctx.shadowBlur = 20;
-            ctx.shadowColor = CONSTANTS.VshadowColor;
+            ctx.shadowColor = Config.V_SHADOW_COLOR;
             
             ctx.beginPath();
             ctx.arc(maskX, maskY, 9, 0, 2 * Math.PI);
-            ctx.fillStyle = CONSTANTS.VinnerColor;
+            ctx.fillStyle = Config.V_INNER_COLOR;
             ctx.fill();
             ctx.shadowBlur = 0;
         }

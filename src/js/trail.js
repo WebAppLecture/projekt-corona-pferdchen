@@ -6,15 +6,16 @@ import { Neighbour } from "./GameObjects/neigbour.js";
 import { OldWhiteMan } from "./GameObjects/oldWhiteMan.js";
 import {CONSTANTS} from "./constants.js";
 import { Mask } from "./GameObjects/mask.js";
+import Config from "./config.js";
 
 export class Trail {
     constructor(mode){
         if(mode){
             this.map = hMap;
-            this.groundColor=CONSTANTS.groundColor;
+            this.groundColor=Config.H_GROUND_COLOR;
         } else {
             this.map =dMap;
-            this.groundColor=CONSTANTS.darkGroundColor;
+            this.groundColor=Config.D_GROUND_COLOR;
         }
         this.trail = [];
         this.setupMap();
@@ -34,16 +35,16 @@ export class Trail {
                     case "_":
                         break;
                     case "1":
-                        inArray.push(new GroundObject(x, y, CONSTANTS.groundwidth,
-                            this.groundColor,CONSTANTS.speedTrailX, 0));
+                        inArray.push(new GroundObject(x, y, Config.GROUND_WIDTH,
+                            this.groundColor,Config.SPEED_TRAILX, 0));
                         break;
                     case "2":
-                        inArray.push(new Mask(x,y,CONSTANTS.maskWidth, CONSTANTS.maskHeight,
-                            CONSTANTS.maskColor,CONSTANTS.speedTrailX,0));
+                        inArray.push(new Mask(x,y,Config.MASK_WIDTH, Config.MASK_HEIGHT,
+                            Config.MASK_COLOR,Config.SPEED_TRAILX,0));
                         break;
                     case "3":
-                        inArray.push(new Toiletpaper(x,y, CONSTANTS.TPradius,
-                            CONSTANTS.speedTrailX, 0));
+                        inArray.push(new Toiletpaper(x,y,Config.TP_RADIUS, 
+                            Config.SPEED_TRAILX, 0));
                         break;
                     case "4":
                         inArray.push(new Virus(x,y, CONSTANTS.Vradius, CONSTANTS.VouterColor,

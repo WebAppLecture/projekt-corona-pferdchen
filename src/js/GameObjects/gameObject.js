@@ -1,4 +1,3 @@
-import { CONSTANTS } from "../constants.js";
 
 export class GameObject {
     constructor(x, y, width, color, vx, vy, takeable){
@@ -23,8 +22,8 @@ export class GameObject {
 }
 
 export class TakeObject extends GameObject{ //Klasse fuer alle nehmbaren Objekte
-    constructor(x,y,width, color, vx,vy){
-        super(x, y, width, color, vx, vy, true);
+    constructor(x,y,width, color, vx){
+        super(x, y, width, color, vx, 0, true);
     }
     
     take(){
@@ -38,8 +37,8 @@ export class TakeObject extends GameObject{ //Klasse fuer alle nehmbaren Objekte
 }
 
 export class GroundObject extends GameObject{
-    constructor(x, y, width, color, vx, vy){
-        super(x,y,width, color,vx,vy, false);
+    constructor(x, y, width, color, vx){
+        super(x,y,width, color,vx, 0, false);
         this.x = x;
         this.y = y;
         this.width = width;
