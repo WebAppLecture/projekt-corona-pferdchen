@@ -81,16 +81,16 @@ body {
     cursor: pointer;
     box-shadow: 0 0 2vh 2vh black;
 }
+
 .toiletpaper {
     bottom: 2vh;
     left: 5vh;
     position: relative;
 }
 .toiletpaper > * {
-     display: inline-block;
-     background: gray;
-     left: 2vh;
-    
+    display: inline-block;
+    background: gray;
+    left: 2vh;
     width: 6vh;
     height: 6vh;
     border: 2vh solid greenyellow;
@@ -98,6 +98,43 @@ body {
     padding: .5vh 1vh ;
     margin-right: 2vh;
 }
+.dark {
+    background: #bbb;
+}
+.people{
+    background: greenyellow;
+}
+.infected { /* quelle: https://www.wirehive.com/thoughts/pure-css-smiley-faces/ */
+    position: relative;
+    
+    
+    }
+.infected:before {
+    content: "";
+    position: absolute;
+    top: 0.4vh;
+    left: 50%;
+    width: 1vh;
+    height: 0.7vh;
+    margin-left: -1.3vh;
+    
+    border-left: 0.7vh solid black;
+    border-right: 0.7vh solid black;
+}
+.infected:after {
+    content: "";
+    position: absolute;
+    top: 2vh;
+    left: 40%;
+    width: 2vh;
+    height: 0.5vh;
+    margin-left: -1vh;
+    border-bottom: 0.2vh solid black;
+    border-left: 0.2vh solid black;
+    border-right: 0.2vh solid black;
+    border-radius: 0 0 8px 8px;
+}
+
 .taken{
     border: 2vh solid white;
 }

@@ -1,9 +1,8 @@
-import {TakeObject } from "./gameObject.js";
-import { Player } from "./player.js";
+import {GameObject } from "./gameObject.js";
 
-export class Mask extends TakeObject{
-    constructor(x,y,width, height, color,vx,vy){
-        super(x, y, width, color, vx, vy);
+export class Mask extends GameObject{
+    constructor(x,y,width, height, color,vx){
+        super(x, y, width, color, vx, 0, true);
         this.height = height;
         this.x = x;
         this.y = y;
@@ -12,20 +11,17 @@ export class Mask extends TakeObject{
     }
     draw(ctx){
         ctx.fillStyle = this.color;
-        ctx.fillRect(this.x, this.y, this.width, this.height);
-        
+        ctx.fillRect(this.x, this.y, this.width, this.height);    
     }
     collision(playerx,playery,playerwidth){
         return (this.x<playerx+playerwidth&&
             this.x>playerx-this.width
             &&this.y<playery+playerwidth+1
             &&this.y>playery-this.height);
-        
     }
     take(){
         let audio = new Audio("../../src/sounds/mask.wav");
         audio.play();
         return "1Maske";
-        //Player.drawMask();
     }
 }
