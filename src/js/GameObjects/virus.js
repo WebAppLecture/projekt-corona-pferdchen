@@ -1,10 +1,10 @@
-import { TakeObject } from "./gameObject.js";
+import { GameObject } from "./gameObject.js";
 import Config from "../config.js";
 
-export class Virus extends TakeObject{
+export class Virus extends GameObject{
 
     constructor(x, y, width, outerColor, innerColor,vx){
-        super(x,y,width,innerColor,vx);
+        super(x,y,width,innerColor,vx, 0, true);
         this.outerColor = outerColor;
         this.innerColor = innerColor;
     }

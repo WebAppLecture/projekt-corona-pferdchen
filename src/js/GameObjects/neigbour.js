@@ -1,10 +1,10 @@
-import { TakeObject } from "./gameObject.js";
+import { GameObject } from "./gameObject.js";
 import Config from "../config.js";
 
 
-export class Neighbour extends TakeObject{
+export class Neighbour extends GameObject{
     constructor(x,y, radius, facecolor, vx){
-        super(x, y, radius, facecolor, vx);
+        super(x, y, radius, facecolor, vx, 0, true);
         this.width = radius;
         this.facecolor = facecolor;
         this.human = true;

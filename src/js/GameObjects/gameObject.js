@@ -21,21 +21,6 @@ export class GameObject {
     }
 }
 
-export class TakeObject extends GameObject{ //Klasse fuer alle nehmbaren Objekte
-    constructor(x,y,width, color, vx){
-        super(x, y, width, color, vx, 0, true);
-    }
-    
-    take(){
-    }
-    collision(playerx,playery,playerwidth){
-        return (this.x<playerx+playerwidth&&
-            this.x>playerx-this.width
-            &&this.y<playery+playerwidth+1
-            &&this.y>playery-this.width);
-    }
-}
-
 export class GroundObject extends GameObject{
     constructor(x, y, width, color, vx){
         super(x,y,width, color,vx, 0, false);
@@ -49,9 +34,11 @@ export class GroundObject extends GameObject{
         ctx.fillRect(this.x, this.y, this.width, this.width);
     }
     collision(playerx,playery,playerwidth){
-        return (this.x<playerx+playerwidth&&
-            this.x>playerx-this.width
-            &&this.y<playery+playerwidth+1
-            &&this.y>playery-this.width);
+        let PRightSide = playerx+playerwidth;
+        let PBottom = playery+playerwidth;
+        return (this.x<PRightSide-0.5 &&
+            this.x>playerx-this.width-0.1
+            &&this.y<PBottom+1
+            &&this.y>playery-this.width-0.1);
     }
 }

@@ -1,10 +1,10 @@
-import { TakeObject } from "./gameObject.js";
+import { GameObject } from "./gameObject.js";
 import Config from "../config.js";
 
 
-export class Toiletpaper extends TakeObject{
+export class Toiletpaper extends GameObject{
     constructor(x,y,width, vx){
-        super(x,y, width,Config.TP_OUTER_COLOR, vx);
+        super(x,y, width,Config.TP_OUTER_COLOR, vx, 0, true);
     }
     draw(ctx){
         for(let i= this.width;i>5; i-=4){

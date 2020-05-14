@@ -1,9 +1,9 @@
-import { TakeObject } from "./gameObject.js";
+import { GameObject } from "./gameObject.js";
 import Config from "../config.js";
 
-export class OldWhiteMan extends TakeObject {
+export class OldWhiteMan extends GameObject {
     constructor(x,y, width, facecolor, vx){
-        super(x, y, width, facecolor, vx);
+        super(x, y, width, facecolor, vx, 0, true);
         this.facecolor = facecolor;
         this.human = true;
         this.infected = false;

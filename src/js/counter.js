@@ -3,12 +3,16 @@ export class Counter {
         this.count = 0;
         this.mode = mode;
         this.countList = countList;
+        this.classname = "taken";
+        if(!mode){
+            this.classname = "infected";
+        }
     }
 
     countUp(){
         if(this.count<5){ 
             let tp = this.countList.children[this.count];
-            tp.classList.add("taken");
+            tp.classList.add(this.classname);
             this.count++;
         }
     }
@@ -17,7 +21,7 @@ export class Counter {
         if(this.count>0){
             this.count--;
             let tp = this.countList.children[this.count];
-            tp.classList.remove("taken");
+            tp.classList.remove(this.classname);
         }
     }
 }

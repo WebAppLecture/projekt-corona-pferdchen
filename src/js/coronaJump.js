@@ -115,6 +115,8 @@ export class CoronaJump extends GameTemplate{
             let reihe = this.trail[i];
             for(let k = 0; k<reihe.length;k++) {
                 let element = reihe[k];
+                let pRightSide = this.player.x+this.player.width;
+                let pBottom = this.player.y+this.player.width;
             // wenn ein Element player berührt
                 if(element.collision(this.player.x,this.player.y,this.player.width)){
                     if(element.takeable){ //nehmbares Element
@@ -124,11 +126,10 @@ export class CoronaJump extends GameTemplate{
                         }
                     } 
                     else{ 
-                        if(element.y<this.player.y+this.player.width+1&&
-                            element.y>this.player.y-element.width){
+                        if(element.y<=pBottom+1&& element.y>this.player.y-element.width
+                            && element.x <pRightSide-2){
                                 this.player.stopFalling(element.y);
-                        } if(element.x>=this.player.x+this.player.width-2&&
-                            element.y<this.player.y+this.player.width-2&&
+                        } if(element.x>=pRightSide-2 && element.y<pBottom &&
                             element.y>this.player.y-element.width){ //not-takeable element is on the side
                                 this.player.pushAside(element.x);
                         }
