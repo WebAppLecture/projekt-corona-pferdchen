@@ -1,7 +1,7 @@
 import {GameTemplate } from "./gameTemplate.js";
 
 import { Player } from "./player.js";
-import {Trail} from "./trail.js";
+import {Trail} from "./trail/trail.js";
 import Config from "./config.js";
 
 
@@ -9,7 +9,7 @@ import Config from "./config.js";
 export class CoronaJump extends GameTemplate{
 
     start(mode){
-        this.mode = mode;
+        this.inHealthMode = mode;
         this.initObjects();
         this.startSoundtrack();
     }
@@ -17,12 +17,7 @@ export class CoronaJump extends GameTemplate{
     initObjects(){   
         this.player = new Player(Config.PLAYER_X, Config.PLAYER_Y, Config.PLAYER_WIDTH, 
             Config.PLAYER_COLOR, Config.PLAYER_MOVE_X, Config.PLAYER_MOVE_Y);
-        this.gameOver = false;
-        this.audio;
-        this.counter = 0;
-        this.trail = new Trail(this.mode).trail;
-        this.countlist = document.querySelector(".toiletpaper"); //bei "d"-mode: css-klasse ändern
-
+        this.trail = new Trail(this.inHealthMode).trail;
     }
 
     shoot(){
@@ -35,19 +30,14 @@ export class CoronaJump extends GameTemplate{
         this.trail.forEach(element => {
             element.forEach(innerele => {
                 innerele.draw(ctx);
-        });
-    });
-        
+            });
+        });   
     }
     update(ctx){
         this.checkGameOver()
         this.player.update(ctx);
         this.checkCollision();
         this.updateTrails(ctx);  
-    }
-
-    showGameoverScreen(ctx){
-        super.gameOverScreen(ctx);
     }
 
     updateTrails(ctx){
@@ -71,7 +61,7 @@ export class CoronaJump extends GameTemplate{
                 }
                 break;
             case "1TP":
-                this.countUP();
+                this.counter.countUp();
                 break;
             case "1OWM":
                 this.meetOldMan(element);
@@ -81,35 +71,42 @@ export class CoronaJump extends GameTemplate{
                 break;
         }
     }
-    countUP(){ 
-        if(this.counter<6){ 
-            let tp = this.countlist.children[this.counter];
-            tp.classList.add("taken");
-            this.counter++;
-        }
-    }
+
     meetOldMan(element){
-        if(this.mode){ //im health-mode tp klauen
-            this.stealTP(); //im Dark-mode infizieren oder nichts
+        if(this.inHealthMode){ //im health-mode tp klauen
+            this.counter.countDown(); //im Dark-mode infizieren oder nichts
         } else if(this.player.infected){
-            this.countUP();
+            this.counter.countUp();
             element.infect();
         }
         
     }
     meetNeigbour(element){
-        if(this.mode){ 
+        if(this.inHealthMode){ 
             this.checkWin(); 
+            this.gameOver = true;
+            return;
         } else if(this.player.infected){
-            this.countUP();
+            this.counter.countUp();
             element.infect();
+        } 
+        this.checkWin();
+    }
+    checkWin(){
+        if(this.counter.count>4){
+            this.won = true;
+            let wonaudio = new Audio("../../src/sounds/won.wav");
+            wonaudio.play();
+            this.gameOver=true;
+            this.soundtrack.pause(); 
         }
     }
-    stealTP(){
-        if(this.counter>0){
-            this.counter--;
-            let tp = this.countlist.children[this.counter];
-            tp.classList.remove("taken");
+    
+    checkGameOver(){
+        let healthOver = this.inHealthMode && this.player.infected; //Game-over im HealthModus
+       this.gameOver = (this.won || healthOver || this.player.y >= 600 || this.player.x <= -50);
+        if(this.gameOver){
+            this.soundtrack.pause();
         }
     }
     
@@ -150,30 +147,13 @@ export class CoronaJump extends GameTemplate{
             this.player.jump(); //wenn Spiel läuft, bei click hüpfen
         } else {
             location.reload(); //bei Game over reload
-        }
-        
+        }  
     }
-    checkWin(){
-        if(this.counter>=5){
-            this.won = true;
-            let wonaudio = new Audio("../../src/sounds/won.wav");
-            wonaudio.play();
-        }
-        this.audio.pause();
-        this.gameOver = true;
-    }
-    checkGameOver(){
-        let healthOver = this.mode && this.player.infected;
-       this.gameOver = (healthOver || this.player.y >= 600 || this.player.x <= -50);
-        if(this.gameOver){
-            this.audio.pause();
-        }
-        
-    }
+    
     startSoundtrack(){
-        this.audio = new Audio("../../src/sounds/background2.wav");
-        this.audio.loop = true;
-        this.audio.play();
+        this.soundtrack = new Audio("../../src/sounds/background2.wav");
+        this.soundtrack.loop = true;
+        this.soundtrack.play();
     }
 }
 

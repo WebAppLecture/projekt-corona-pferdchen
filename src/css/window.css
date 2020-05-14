@@ -81,9 +81,7 @@ body {
     cursor: pointer;
     box-shadow: 0 0 2vh 2vh black;
 }
-.dark {
-    background: #bbb;
-}
+
 .toiletpaper {
     bottom: 2vh;
     left: 5vh;
@@ -99,6 +97,9 @@ body {
     border-radius: 50%;
     padding: .5vh 1vh ;
     margin-right: 2vh;
+}
+.dark {
+    background: #bbb;
 }
 .people{
     background: greenyellow;

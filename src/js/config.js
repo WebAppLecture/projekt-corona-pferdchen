@@ -2,6 +2,10 @@
 const Config = {
     SPEED_TRAILX: -1.3,
     NEW_SCREEN:"#bbb",
+    WON_HEALTH: ["Juhu!", "Thank you for", "the toiletpaper!","", "click to", "play again"],
+    WON_DARK: ["Yey.","You won by infecting", "many innocent People","...","click to", "play again"],
+    GAME_OVER_TEXT: ["Game Over", "", "click to", "play again"],
+    TEXT_COLOR: "#000",
     
     //Player
     GRAVITY_Y: 0.3,

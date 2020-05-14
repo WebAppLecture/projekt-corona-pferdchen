@@ -1,12 +1,11 @@
 import {hMap, dMap} from "./map.js";
-import { GroundObject} from "./GameObjects/gameObject.js";
-import { Virus } from "./GameObjects/virus.js";
-import { Toiletpaper } from "./GameObjects/toiletPaper.js";
-import { Neighbour } from "./GameObjects/neigbour.js";
-import { OldWhiteMan } from "./GameObjects/oldWhiteMan.js";
-import {CONSTANTS} from "./constants.js";
-import { Mask } from "./GameObjects/mask.js";
-import Config from "./config.js";
+import { GroundObject} from "../GameObjects/gameObject.js";
+import { Virus } from "../GameObjects/virus.js";
+import { Toiletpaper } from "../GameObjects/toiletPaper.js";
+import { Neighbour } from "../GameObjects/neigbour.js";
+import { OldWhiteMan } from "../GameObjects/oldWhiteMan.js";
+import { Mask } from "../GameObjects/mask.js";
+import Config from "../config.js";
 
 export class Trail {
     constructor(mode){
@@ -36,27 +35,27 @@ export class Trail {
                         break;
                     case "1":
                         inArray.push(new GroundObject(x, y, Config.GROUND_WIDTH,
-                            this.groundColor,Config.SPEED_TRAILX, 0));
+                            this.groundColor,Config.SPEED_TRAILX));
                         break;
                     case "2":
                         inArray.push(new Mask(x,y,Config.MASK_WIDTH, Config.MASK_HEIGHT,
-                            Config.MASK_COLOR,Config.SPEED_TRAILX,0));
+                            Config.MASK_COLOR,Config.SPEED_TRAILX));
                         break;
                     case "3":
                         inArray.push(new Toiletpaper(x,y,Config.TP_RADIUS, 
-                            Config.SPEED_TRAILX, 0));
+                            Config.SPEED_TRAILX));
                         break;
                     case "4":
-                        inArray.push(new Virus(x,y, CONSTANTS.Vradius, CONSTANTS.VouterColor,
-                            CONSTANTS.VinnerColor,CONSTANTS.speedTrailX, 0));
+                        inArray.push(new Virus(x,y, Config.V_RADIUS, Config.V_OUTER_COLOR,
+                            Config.V_INNER_COLOR,Config.SPEED_TRAILX));
                         break;
                     case "5":
-                        inArray.push(new OldWhiteMan(x,y,CONSTANTS.OWMradius,
-                            CONSTANTS.OWMfaceColor ,CONSTANTS.speedTrailX, 0));
+                        inArray.push(new OldWhiteMan(x,y,Config.OWM_RADIUS,
+                            Config.OWM_FACE_COLOR ,Config.SPEED_TRAILX));
                         break;
                     case "6":
-                        inArray.push(new Neighbour(x,y,CONSTANTS.NBradius,
-                            CONSTANTS.NBfaceColor, CONSTANTS.speedTrailX, 0));
+                        inArray.push(new Neighbour(x,y,Config.NB_RADIUS,
+                            Config.NB_FACE_COLOR, Config.SPEED_TRAILX));
                 }
             }
         }

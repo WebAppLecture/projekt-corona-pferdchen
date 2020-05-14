@@ -1,11 +1,11 @@
 import { CoronaJump } from "./coronaJump.js";
-import { CONSTANTS } from "./constants.js";
 import { OldWhiteMan } from "./GameObjects/oldWhiteMan.js";
 import { Neighbour } from "./GameObjects/neigbour.js";
+import Config from "./config.js";
 
 export class GameEngine {
 
-    constructor(controls, screen, menu, shoot, reset,tplist) {
+    constructor(controls, screen, menu, shoot, reset, tplist) {
         this.controls = controls;
         this.screen = screen;
         this.menu = menu;
@@ -20,7 +20,7 @@ export class GameEngine {
     }
 
     loadGame(healthyMode) {
-        this.game = new CoronaJump(healthyMode);
+        this.game = new CoronaJump(healthyMode, this.tplist);
         this.hideMenu();
         this.screen.addEventListener("mousedown", ()=> this.game.clicked());
         this.changeScreen(healthyMode);
@@ -45,9 +45,9 @@ export class GameEngine {
         modes[0].addEventListener("click", () => this.loadGame(true));
         modes[1].addEventListener("click", () => this.loadGame(false));
         
-        let opi = new OldWhiteMan(680,270, 30, CONSTANTS.OWMfaceColor,0,0);
+        let opi = new OldWhiteMan(680,270, 30, Config.OWM_FACE_COLOR,0,0);
         opi.draw(this.renderContext);
-        let omi = new Neighbour(170, 170, 30, CONSTANTS.NBfaceColor, 0,0);
+        let omi = new Neighbour(170, 170, 30, Config.NB_FACE_COLOR, 0,0);
         omi.draw(this.renderContext);
         
 
