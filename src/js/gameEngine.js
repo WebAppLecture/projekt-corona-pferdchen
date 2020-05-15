@@ -13,9 +13,7 @@ export class GameEngine {
         this.reset = reset;
         this.tplist = tplist;
         this.setupCanvas();
-        //this.setupControls();
         this.showGameSelect();
-        
         
     }
 
@@ -26,11 +24,12 @@ export class GameEngine {
         this.changeScreen(healthyMode);
         this.gameLoop();
         this.activateButtons();
-
     }
+
     resetGame(){
         location.reload();
     }
+
     changeScreen(mode){
         if(!mode){
             this.screen.classList.add("dark");
@@ -49,14 +48,13 @@ export class GameEngine {
         opi.draw(this.renderContext);
         let omi = new Neighbour(170, 170, 30, Config.NB_FACE_COLOR, 0,0);
         omi.draw(this.renderContext);
-        
-
     }
+
     setupCanvas() {
         this.renderContext = this.screen.getContext('2d');
         this.screen.classList.add("on");
-        
     }
+    
     activateButtons(){
         this.reset.addEventListener("click", () => this.resetGame());
         this.shoot.addEventListener("click", () => this.game.shoot());

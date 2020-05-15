@@ -1,5 +1,4 @@
 import {GameTemplate } from "./gameTemplate.js";
-
 import { Player } from "./player.js";
 import {Trail} from "./trail/trail.js";
 import Config from "./config.js";
@@ -20,10 +19,7 @@ export class CoronaJump extends GameTemplate{
         this.trail = new Trail(this.inHealthMode).trail;
     }
 
-    shoot(){
-        let shootAudio = new Audio("../../src/sounds/cough.wav");
-        shootAudio.play();
-    }
+    
 
     draw(ctx){
         this.player.draw(ctx);
@@ -102,7 +98,8 @@ export class CoronaJump extends GameTemplate{
         }
     }
     
-    checkGameOver(){
+    checkGameOver(){ // Game-over, wenn gewonnen oder Player im Health-Modus infiziert
+                        // oder Player fällt / schiebt sich aus dem Spielfeld
         let healthOver = this.inHealthMode && this.player.infected; //Game-over im HealthModus
        this.gameOver = (this.won || healthOver || this.player.y >= 600 || this.player.x <= -50);
         if(this.gameOver){
@@ -121,22 +118,22 @@ export class CoronaJump extends GameTemplate{
                 if(element.collision(this.player.x,this.player.y,this.player.width)){
                     if(element.takeable){ //nehmbares Element
                         this.takeObject(element);
-                        if(!element.human){
+                        if(!element.human){ // ist Element nicht menschlich, verschwindet es, wird "genommen"
                             this.trail[i].splice(this.trail[i].indexOf(element),1);
                         }
                     } 
-                    else{ 
+                    else{ //ist ein Ground-Element (nicht takeable) unter Player, landet Player dort
                         if(element.y<=pBottom+1&& element.y>this.player.y-element.width
                             && element.x <pRightSide-2){
                                 this.player.stopFalling(element.y);
                         } if(element.x>=pRightSide-2 && element.y<pBottom &&
-                            element.y>this.player.y-element.width){ //not-takeable element is on the side
+                            element.y>this.player.y-element.width){ //ist es neben Player, wird er weggeschoben
                                 this.player.pushAside(element.x);
                         }
                     }
                 }
             }
-            if(reihe[0]){
+            if(reihe[0]){ //Elemente außerhalb des Spielfeldes werden gelöscht
                 if(reihe[0].x <= -100){
                 this.trail.shift();}
             }          
@@ -149,6 +146,10 @@ export class CoronaJump extends GameTemplate{
         } else {
             location.reload(); //bei Game over reload
         }  
+    }
+    shoot(){
+        let shootAudio = new Audio("../../src/sounds/cough.wav");
+        shootAudio.play();
     }
     
     startSoundtrack(){

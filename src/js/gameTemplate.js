@@ -18,6 +18,7 @@ export class GameTemplate {
         }
         return Config.WON_DARK;
     }
+
     tick(ctx) {
         if(this.gameOver) {
             if(this.won){
@@ -45,7 +46,6 @@ export class GameTemplate {
             ctx.fillText(line, ctx.canvas.width/2, startY + i * fontSize);
         }); 
         ctx.shadowBlur = 0;
-        
     }
     
 }
