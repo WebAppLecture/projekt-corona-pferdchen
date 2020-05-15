@@ -5,9 +5,8 @@
 }
 
 body {
+    background: radial-gradient(ellipse at center, rgb(64, 255, 77) 30%,  rgb(189, 9, 165) 100%);
     
-        background: radial-gradient(ellipse at center, rgb(64, 255, 77) 50%,  rgb(189, 9, 165) 100%);
-
 }
 .gameBox,
 .gameBox * {
@@ -22,10 +21,10 @@ body {
     position: relative;
     box-sizing: border-box;
     width: fit-content;
-    
     background: chartreuse;
     display: block;
     border-radius: 10%;;
+    border: 0.5vh ridge ;
 }
 .logo {
     width: 100%;
@@ -86,9 +85,12 @@ body {
     bottom: 2vh;
     left: 5vh;
     position: relative;
+    
 }
 .toiletpaper > * {
+    
     display: inline-block;
+    
     background: gray;
     left: 2vh;
     width: 6vh;
@@ -106,17 +108,21 @@ body {
 }
 .infected { /* quelle: https://www.wirehive.com/thoughts/pure-css-smiley-faces/ */
     position: relative;
-    
+    width: 6vh;
+    height: 6vh;
+    background-color: #7d5;
+    border: 0.5vh dashed red;
     
     }
+    
 .infected:before {
     content: "";
     position: absolute;
-    top: 0.4vh;
-    left: 50%;
+    top: 1.7vh;
+    left: 1vh;
     width: 1vh;
     height: 0.7vh;
-    margin-left: -1.3vh;
+    
     
     border-left: 0.7vh solid black;
     border-right: 0.7vh solid black;
@@ -124,15 +130,15 @@ body {
 .infected:after {
     content: "";
     position: absolute;
-    top: 2vh;
-    left: 40%;
+    top: 3.5vh;
+    left: 3vh;
     width: 2vh;
     height: 0.5vh;
-    margin-left: -1vh;
-    border-bottom: 0.2vh solid black;
-    border-left: 0.2vh solid black;
-    border-right: 0.2vh solid black;
-    border-radius: 0 0 8px 8px;
+    margin-left: -2vh;
+    border-top: 0.2vh solid black;
+    
+    
+    border-radius: 1vh 1vh 0 0;
 }
 
 .taken{
