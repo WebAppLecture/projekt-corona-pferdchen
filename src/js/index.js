@@ -1,15 +1,11 @@
-fetch("src/data/data.json")
-    .then(e => e.json())
-    .then(json => {
-        let title = document.createElement("h2"),
-            content = document.createElement("p"),
-            image = document.createElement("img");
+import { GameEngine } from "./gameEngine.js";
 
-        title.innerHTML = json.title;
-        content.innerHTML = json.content;
-        image.setAttribute("src", "./src/images/sql magic.jpg");
 
-        document.body.appendChild(title);
-        document.body.appendChild(content);
-        document.body.appendChild(image);
-    });
+window.gameEngine = new GameEngine(
+    document.querySelector(".button"),
+    document.querySelector(".screen"),
+    document.querySelector(".menu"),
+    document.querySelector(".shoot"),
+    document.querySelector(".reset"),
+    document.querySelector(".toiletpaper"),
+   );
